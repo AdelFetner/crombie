@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bruno\\Escritorio\\crombie\\practice\\.net\\IntroCSharp\\IntroCSharp\\IntroCSharp.csproj": {}
+    "C:\\Users\\bruno\\source\\repos\\IntroCSharp\\IntroCSharp\\IntroCSharp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bruno\\Escritorio\\crombie\\practice\\.net\\IntroCSharp\\IntroCSharp\\IntroCSharp.csproj": {
+    "C:\\Users\\bruno\\source\\repos\\IntroCSharp\\IntroCSharp\\IntroCSharp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bruno\\Escritorio\\crombie\\practice\\.net\\IntroCSharp\\IntroCSharp\\IntroCSharp.csproj",
+        "projectUniqueName": "C:\\Users\\bruno\\source\\repos\\IntroCSharp\\IntroCSharp\\IntroCSharp.csproj",
         "projectName": "IntroCSharp",
-        "projectPath": "C:\\Users\\bruno\\Escritorio\\crombie\\practice\\.net\\IntroCSharp\\IntroCSharp\\IntroCSharp.csproj",
+        "projectPath": "C:\\Users\\bruno\\source\\repos\\IntroCSharp\\IntroCSharp\\IntroCSharp.csproj",
         "packagesPath": "C:\\Users\\bruno\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bruno\\Escritorio\\crombie\\practice\\.net\\IntroCSharp\\IntroCSharp\\obj\\",
+        "outputPath": "C:\\Users\\bruno\\source\\repos\\IntroCSharp\\IntroCSharp\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\bruno\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
