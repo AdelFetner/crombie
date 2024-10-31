@@ -1,13 +1,17 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Diagnostics.Contracts;
 
-var sale = new SaleWithTax(25, 1.16m);
-sale.Total = 15;
+   Console.WriteLine("Enter the current tax");
+string currentTax = Console.ReadLine();
+Console.WriteLine("Current tax is " +  currentTax+ ".");
+
+
+var sale = new SaleWithTax(25, decimal.Parse(currentTax));
+//Sale sale = new();
+sale.Total = 15 + decimal.Parse(currentTax);
 
 var message = sale.GetInfo();
 Console.WriteLine(message);
-//Sale sale = new();
-
 
 class SaleWithTax : Sale
 {
@@ -20,7 +24,7 @@ class SaleWithTax : Sale
 
     public override string GetInfo()
     {
-        return "El total es" + Total + "El impuesto es " + Tax;
+        return "El total es " + Total + ", y el impuesto es " + Tax;
     }
 
     public string GetInfo(string message)
