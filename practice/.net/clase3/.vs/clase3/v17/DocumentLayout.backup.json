@@ -1,0 +1,98 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\bruno\\source\\repos\\clase3\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|c:\\users\\bruno\\source\\repos\\clase3\\clase3\\biblioteca.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|solutionrelative:clase3\\biblioteca.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|c:\\users\\bruno\\source\\repos\\clase3\\clase3\\libro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|solutionrelative:clase3\\libro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|c:\\users\\bruno\\source\\repos\\clase3\\clase3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|solutionrelative:clase3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|c:\\users\\bruno\\source\\repos\\clase3\\clase3\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|solutionrelative:clase3\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Biblioteca.cs",
+              "DocumentMoniker": "C:\\Users\\bruno\\source\\repos\\clase3\\clase3\\Biblioteca.cs",
+              "RelativeDocumentMoniker": "clase3\\Biblioteca.cs",
+              "ToolTip": "C:\\Users\\bruno\\source\\repos\\clase3\\clase3\\Biblioteca.cs",
+              "RelativeToolTip": "clase3\\Biblioteca.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAgwDIAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T21:41:37.596Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Usuario.cs",
+              "DocumentMoniker": "C:\\Users\\bruno\\source\\repos\\clase3\\clase3\\Usuario.cs",
+              "RelativeDocumentMoniker": "clase3\\Usuario.cs",
+              "ToolTip": "C:\\Users\\bruno\\source\\repos\\clase3\\clase3\\Usuario.cs",
+              "RelativeToolTip": "clase3\\Usuario.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T22:06:21.487Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\bruno\\source\\repos\\clase3\\clase3\\Program.cs",
+              "RelativeDocumentMoniker": "clase3\\Program.cs",
+              "ToolTip": "C:\\Users\\bruno\\source\\repos\\clase3\\clase3\\Program.cs",
+              "RelativeToolTip": "clase3\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T21:03:31.433Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Libro.cs",
+              "DocumentMoniker": "C:\\Users\\bruno\\source\\repos\\clase3\\clase3\\Libro.cs",
+              "RelativeDocumentMoniker": "clase3\\Libro.cs",
+              "ToolTip": "C:\\Users\\bruno\\source\\repos\\clase3\\clase3\\Libro.cs",
+              "RelativeToolTip": "clase3\\Libro.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACMAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T21:14:55.616Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
