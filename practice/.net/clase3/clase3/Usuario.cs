@@ -10,11 +10,11 @@ namespace UsuarioComponent;
 public class Usuario
 {
     public string Name { get; set; }
-    public string ID { get; set; }
+    public int ID { get; set; }
     
     public ArrayList LibrosPrestados {  get; set; }
 
-    public Usuario(string Name, string ID)
+    public Usuario(string Name, int ID)
     {
         this.Name = Name;
         this.ID = ID;

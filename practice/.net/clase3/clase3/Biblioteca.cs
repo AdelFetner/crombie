@@ -12,21 +12,22 @@ namespace BibliotecaComponent
 {
     public class Biblioteca
     {
-        public ArrayList LibrosTotales
+        public ArrayList Libros
         {
             get
             {
-                return this.LibrosTotales;
+                return this.Libros;
             }
             set
             {
-                if (LibrosTotales.Count == 0)
+                if (Libros.Count == 0)
                 {
                     Console.WriteLine("Actualmente no hay libros en la biblioteca");
                 };
             }
         }
-        public ArrayList LibrosDisponibles { 
+        public ArrayList LibrosDisponibles
+        {
             get
             {
                 return this.LibrosDisponibles;
@@ -37,7 +38,7 @@ namespace BibliotecaComponent
                 {
                     Console.WriteLine("Actualmente no hay libros disponibles");
                 };
-            } 
+            }
         }
 
         public ArrayList Usuarios
@@ -47,30 +48,38 @@ namespace BibliotecaComponent
                 return this.Usuarios;
             }
             set
-            { 
-                this.Usuarios = value; 
+            {
+                this.Usuarios = value;
             }
         }
 
         public string NuevoLibro(Libro libro)
         {
-            LibrosTotales.Add(libro);
+            Libros.Add(libro);
             return "Libro agregado exitosamente";
         }
 
         public string NuevoUsuario(Usuario usuario)
         {
-
+            Usuarios.Add(usuario);
+            return "Usuario creado exitosamente";
         }
 
         public string PrestarLibro(Libro libro, Usuario usuario)
         {
+            //cambia obj usuariopresta y como no disponible
             libro.EstaDisponible = false;
+            libro.UsuarioIDPresta = usuario.ID;
+
             usuario.LibrosPrestados.Add(libro);
 
             return "Libro prestado exitosamente";
         }
 
-
+        public string DevolverLibro(Libro libro, Usuario usuario)
+        {
+            libro.EstaDisponible = true;
+            //libro.UsuarioIDPresta = 
+        }
     }
 }
