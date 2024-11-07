@@ -3,24 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\bruno\\Desktop\\crombie\\practice\\.net\\clase3\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|c:\\users\\bruno\\desktop\\crombie\\practice\\.net\\clase3\\clase3\\biblioteca.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|solutionrelative:clase3\\biblioteca.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|c:\\users\\bruno\\desktop\\crombie\\practice\\.net\\clase3\\clase3\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|solutionrelative:clase3\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|c:\\users\\bruno\\desktop\\crombie\\practice\\.net\\clase3\\clase3\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|solutionrelative:clase3\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|c:\\users\\bruno\\desktop\\crombie\\practice\\.net\\clase3\\clase3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|solutionrelative:clase3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|c:\\users\\bruno\\desktop\\crombie\\practice\\.net\\clase3\\clase3\\biblioteca.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|solutionrelative:clase3\\biblioteca.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|c:\\users\\bruno\\desktop\\crombie\\practice\\.net\\clase3\\clase3\\libro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|solutionrelative:clase3\\libro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|c:\\users\\bruno\\desktop\\crombie\\practice\\.net\\clase3\\clase3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{00CEA469-4EDB-48AC-A37D-EDF2190B7ABC}|clase3\\clase3.csproj|solutionrelative:clase3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,17 +26,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Biblioteca.cs",
               "DocumentMoniker": "C:\\Users\\bruno\\Desktop\\crombie\\practice\\.net\\clase3\\clase3\\Biblioteca.cs",
               "RelativeDocumentMoniker": "clase3\\Biblioteca.cs",
-              "ToolTip": "C:\\Users\\bruno\\Desktop\\crombie\\practice\\.net\\clase3\\clase3\\Biblioteca.cs",
-              "RelativeToolTip": "clase3\\Biblioteca.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAAiwIcAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\bruno\\Desktop\\crombie\\practice\\.net\\clase3\\clase3\\Biblioteca.cs*",
+              "RelativeToolTip": "clase3\\Biblioteca.cs*",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAQwIYAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-05T21:41:37.596Z",
               "IsPinned": true,
@@ -52,26 +48,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": ".gitignore",
-              "DocumentMoniker": "C:\\Users\\bruno\\Desktop\\crombie\\practice\\.net\\clase3\\clase3\\.gitignore",
-              "RelativeDocumentMoniker": "clase3\\.gitignore",
-              "ToolTip": "C:\\Users\\bruno\\Desktop\\crombie\\practice\\.net\\clase3\\clase3\\.gitignore",
-              "RelativeToolTip": "clase3\\.gitignore",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-11-07T21:20:43.834Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Usuario.cs",
               "DocumentMoniker": "C:\\Users\\bruno\\Desktop\\crombie\\practice\\.net\\clase3\\clase3\\Usuario.cs",
               "RelativeDocumentMoniker": "clase3\\Usuario.cs",
               "ToolTip": "C:\\Users\\bruno\\Desktop\\crombie\\practice\\.net\\clase3\\clase3\\Usuario.cs",
               "RelativeToolTip": "clase3\\Usuario.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-05T22:06:21.487Z",
               "EditorCaption": ""
@@ -80,11 +63,11 @@
         },
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "Libro.cs",
               "DocumentMoniker": "C:\\Users\\bruno\\Desktop\\crombie\\practice\\.net\\clase3\\clase3\\Libro.cs",
               "RelativeDocumentMoniker": "clase3\\Libro.cs",
@@ -104,7 +87,7 @@
               "RelativeDocumentMoniker": "clase3\\Program.cs",
               "ToolTip": "C:\\Users\\bruno\\Desktop\\crombie\\practice\\.net\\clase3\\clase3\\Program.cs",
               "RelativeToolTip": "clase3\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABhAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-05T21:03:31.433Z",
               "EditorCaption": ""

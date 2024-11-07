@@ -95,7 +95,7 @@ namespace BibliotecaComponent
             usuario.Nombre = nombre;
 
             Console.WriteLine("Ingrese el ID del usuario:");
-            int userID = Console.ReadLine();
+            int userID = Convert.ToInt32(Console.ReadLine());
             if (userID.GetType() == typeof(int))
             {
                 throw new Exception("Debe haber un ID");
@@ -125,9 +125,18 @@ namespace BibliotecaComponent
             return "Libro prestado exitosamente";
         }
 
-        public string DevolverLibro(Libro libro.ISBN, Usuario usuario.UserID)
+        public string DevolverLibro(string ISBN, int IUserID)
         {
-            Console.WriteLine("");
+            Console.WriteLine("Ingrese el ISBN del libro a devolver:");
+            string isbn = Console.ReadLine();
+
+            Console.WriteLine("Ingrese el ID del usuario que devuelve:");
+            string userID = Console.ReadLine();
+            if(LibrosPrestados.find)
+            {
+
+            }
+
             libro.EstaDisponible = true;
             //libro.UsuarioIDPresta = 
         }
