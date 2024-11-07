@@ -55,29 +55,79 @@ namespace BibliotecaComponent
 
         public string NuevoLibro(Libro libro)
         {
+            // titulo
+            Console.WriteLine("Ingrese el título del libro:");
+            string titulo = Console.ReadLine();
+            if (titulo.Length == 0 || titulo == null)
+            {
+                throw new Exception("Debe haber un titulo");
+            }
+            libro.Titulo = titulo;
+            //  autor
+            Console.WriteLine("Ingrese el autor del libro:");
+            string autor = Console.ReadLine();
+            if (autor.Length == 0 || autor == null)
+            {
+                throw new Exception("Debe haber un autor");
+            }
+            libro.Autor = autor;
+            //isbn
+            Console.WriteLine("Ingrese el isbn del libro:");
+            string isbn = Console.ReadLine();
+            if (isbn.Length == 0 || isbn == null)
+            {
+                throw new Exception("Debe haber un ISBN");
+            }
+            libro.ISBN = isbn;
+
             Libros.Add(libro);
             return "Libro agregado exitosamente";
         }
 
         public string NuevoUsuario(Usuario usuario)
         {
+            Console.WriteLine("Ingrese el nombre del usuario:");
+            string nombre = Console.ReadLine();
+            if (nombre.Length == 0 || nombre == null)
+            {
+                throw new Exception("Debe haber un nombre");
+            }
+            usuario.Nombre = nombre;
+
+            Console.WriteLine("Ingrese el ID del usuario:");
+            int userID = Console.ReadLine();
+            if (userID.GetType() == typeof(int))
+            {
+                throw new Exception("Debe haber un ID");
+            }
+            usuario.UserID = userID;
+
             Usuarios.Add(usuario);
             return "Usuario creado exitosamente";
         }
 
         public string PrestarLibro(Libro libro, Usuario usuario)
         {
+            Console.WriteLine("Ingrese el ISBN del libro a prestar:");
+            string isbn = Console.ReadLine();
+            libro.ISBN = isbn;
+
+            Console.WriteLine("Ingrese el ID del usuario a prestar:");
+            string userID = Console.ReadLine();
+            usuario.UserID = userID;
+
             //cambia obj usuariopresta y como no disponible
             libro.EstaDisponible = false;
-            libro.UsuarioIDPresta = usuario.ID;
+            libro.UsuarioIDPresta = usuario.UserID;
 
             usuario.LibrosPrestados.Add(libro);
 
             return "Libro prestado exitosamente";
         }
 
-        public string DevolverLibro(Libro libro, Usuario usuario)
+        public string DevolverLibro(Libro libro.ISBN, Usuario usuario.UserID)
         {
+            Console.WriteLine("");
             libro.EstaDisponible = true;
             //libro.UsuarioIDPresta = 
         }

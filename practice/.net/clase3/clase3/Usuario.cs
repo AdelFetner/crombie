@@ -9,15 +9,15 @@ namespace UsuarioComponent;
 
 public class Usuario
 {
-    public string Name { get; set; }
-    public int ID { get; set; }
-    
-    public ArrayList LibrosPrestados {  get; set; }
+    public string Nombre { get; set; }
+    public int UserID { get; set; }
 
-    public Usuario(string Name, int ID)
+    public ArrayList LibrosPrestados { get; set; }
+
+    public Usuario(string Nombre, int UserID)
     {
-        this.Name = Name;
-        this.ID = ID;
+        this.Nombre = Nombre;
+        this.UserID = UserID;
         LibrosPrestados = new ArrayList();
     }
 }

@@ -28,7 +28,7 @@ namespace LibroComponent
         public string Titulo { get; set; }
         public string ISBN { get; set; }
         public bool EstaDisponible { get; set; }
-        public int UsuarioIDPresta {  get; set; }
+        public int UsuarioIDPresta { get; set; }
 
         public Libro(string Autor, string Titulo, string ISBN, bool EstaDisponible)
         {
