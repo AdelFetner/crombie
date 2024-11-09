@@ -58,7 +58,7 @@ namespace BibliotecaComponent
             // titulo
             Console.WriteLine("Ingrese el título del libro:");
             string titulo = Console.ReadLine();
-            if (titulo.Length == 0 || titulo == null)
+            if (string.IsNullOrEmpty(titulo))
             {
                 throw new Exception("Debe haber un titulo");
             }
@@ -130,8 +130,8 @@ namespace BibliotecaComponent
             Console.WriteLine("Ingrese el ISBN del libro a devolver:");
             string isbn = Console.ReadLine();
 
-            Console.WriteLine("Ingrese el ID del usuario que devuelve:");
             string userID = Console.ReadLine();
+            Console.WriteLine("Ingrese el ID del usuario que devuelve:");
             if(LibrosPrestados.find)
             {
 
