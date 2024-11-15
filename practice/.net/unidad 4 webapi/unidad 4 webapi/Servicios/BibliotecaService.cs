@@ -10,9 +10,9 @@ using UsuarioComponent;
 namespace unidad_4_webapi.Servicios
 
 {
-    public class BibliotecaService
+    public class Biblioteca
     {
-        public ArrayList Libros
+        public List<object> Libros
         {
             get
             {
@@ -26,7 +26,7 @@ namespace unidad_4_webapi.Servicios
                 };
             }
         }
-        public ArrayList LibrosDisponibles
+        public List<object> LibrosDisponibles
         {
             get
             {
@@ -41,7 +41,7 @@ namespace unidad_4_webapi.Servicios
             }
         }
 
-        public ArrayList Usuarios
+        public List<object> Usuarios
         {
             get
             {
@@ -53,7 +53,7 @@ namespace unidad_4_webapi.Servicios
             }
         }
 
-        public string NuevoLibro(LibroService libro)
+        public string NuevoLibro(Libro libro)
         {
             // titulo
             Console.WriteLine("Ingrese el título del libro:");
@@ -106,7 +106,7 @@ namespace unidad_4_webapi.Servicios
             return "Usuario creado exitosamente";
         }
 
-        public string PrestarLibro(LibroService libro, Usuario usuario)
+        public string PrestarLibro(Libro libro, Usuario usuario)
         {
             Console.WriteLine("Ingrese el ISBN del libro a prestar:");
             string isbn = Console.ReadLine();

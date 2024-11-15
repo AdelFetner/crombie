@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using biblioteca.usuarios;
 using DocumentFormat.OpenXml.Bibliography;
 using unidad_4_webapi.Servicios;
 
@@ -44,13 +43,14 @@ namespace unidad_4_webapi.Controllers
         {
         }
 
-        // GET api/<LibraryController>/5
+        // GET api/<LibraryController>/books
         [HttpGet("{books}")]
         public string GetBook(string isbn)
         {
-            
 
-            return Libros;
+            List<object> libros = List<object> Libros;
+            object LibroEncontrado = libros.Find(libro.Contains(isbn));
+            return LibroEncontrado;
         }
 
     }
