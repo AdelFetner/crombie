@@ -66,7 +66,7 @@ namespace BibliotecaComponent
             //  autor
             Console.WriteLine("Ingrese el autor del libro:");
             string autor = Console.ReadLine();
-            if (autor.Length == 0 || autor == null)
+            if (string.IsNullOrEmpty(autor))
             {
                 throw new Exception("Debe haber un autor");
             }
@@ -74,7 +74,7 @@ namespace BibliotecaComponent
             //isbn
             Console.WriteLine("Ingrese el isbn del libro:");
             string isbn = Console.ReadLine();
-            if (isbn.Length == 0 || isbn == null)
+            if (string.IsNullOrEmpty(isbn))
             {
                 throw new Exception("Debe haber un ISBN");
             }
@@ -88,7 +88,7 @@ namespace BibliotecaComponent
         {
             Console.WriteLine("Ingrese el nombre del usuario:");
             string nombre = Console.ReadLine();
-            if (nombre.Length == 0 || nombre == null)
+            if (string.IsNullOrEmpty(nombre))
             {
                 throw new Exception("Debe haber un nombre");
             }
