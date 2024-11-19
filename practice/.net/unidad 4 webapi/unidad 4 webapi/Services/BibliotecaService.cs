@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using unidad_4_webapi;
-using unidad_4_webapi.Models;
-using UsuarioComponent;
+﻿using unidad_4_webapi.Models;
 
 namespace unidad_4_webapi.Servicios
 

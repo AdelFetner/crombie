@@ -33,6 +33,7 @@ namespace unidad_4_webapi.Controllers
         [HttpPost]
         public ActionResult<string> CrearUsuario([FromBody] Usuario usuario)
         {
+            _usuarioService.CrearUsuario(usuario);
             return Ok(_usuarioService.CrearUsuario(usuario));
         }
 
