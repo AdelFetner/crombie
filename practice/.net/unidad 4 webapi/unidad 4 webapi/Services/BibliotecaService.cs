@@ -11,132 +11,82 @@ using UsuarioComponent;
 namespace unidad_4_webapi.Servicios
 
 {
-    public class Biblioteca
+    public class BibliotecaService
     {
-        public List<object> Libros
+        private readonly LibroService _libroService;
+        private readonly UsuarioService _usuarioService;
+        private Biblioteca _biblioteca;
+
+        public BibliotecaService(LibroService libroService, UsuarioService usuarioService)
         {
-            get
-            {
-                return Libros;
-            }
-            set
-            {
-                if (Libros.Count == 0)
-                {
-                    Console.WriteLine("Actualmente no hay libros en la biblioteca");
-                };
-            }
-        }
-        public List<object> LibrosDisponibles
-        {
-            get
-            {
-                return LibrosDisponibles;
-            }
-            set
-            {
-                if (LibrosDisponibles.Count == 0)
-                {
-                    Console.WriteLine("Actualmente no hay libros disponibles");
-                };
-            }
+            _libroService = libroService;
+            _usuarioService = usuarioService;
+            _biblioteca = new Biblioteca();
         }
 
-        public List<object> Usuarios
+        public IEnumerable<Libro> ObtenerTodosLibros()
         {
-            get
-            {
-                return Usuarios;
-            }
-            set
-            {
-                Usuarios = value;
-            }
+            return _biblioteca.Libros;
         }
 
-        public string NuevoLibro(Libro libro)
+        public IEnumerable<Libro> ObtenerLibrosDisponibles()
         {
-            // titulo
-            Console.WriteLine("Ingrese el título del libro:");
-            string titulo = Console.ReadLine();
-            if (titulo.Length == 0 || titulo == null)
-            {
-                throw new Exception("Debe haber un titulo");
-            }
-            libro.Titulo = titulo;
-            //  autor
-            Console.WriteLine("Ingrese el autor del libro:");
-            string autor = Console.ReadLine();
-            if (autor.Length == 0 || autor == null)
-            {
-                throw new Exception("Debe haber un autor");
-            }
-            libro.Autor = autor;
-            //isbn
-            Console.WriteLine("Ingrese el isbn del libro:");
-            string isbn = Console.ReadLine();
-            if (isbn.Length == 0 || isbn == null)
-            {
-                throw new Exception("Debe haber un ISBN");
-            }
-            libro.ISBN = isbn;
-
-            Libros.Add(libro);
-            return "Libro agregado exitosamente";
+            return _biblioteca.LibrosDisponibles;
         }
 
-        public string NuevoUsuario(Usuario usuario)
+        public IEnumerable<Usuario> ObtenerTodosUsuarios()
         {
-            Console.WriteLine("Ingrese el nombre del usuario:");
-            string nombre = Console.ReadLine();
-            if (nombre.Length == 0 || nombre == null)
-            {
-                throw new Exception("Debe haber un nombre");
-            }
-            usuario.Nombre = nombre;
-
-            Console.WriteLine("Ingrese el ID del usuario:");
-            int userID = Convert.ToInt32(Console.ReadLine());
-            if (userID.GetType() == typeof(int))
-            {
-                throw new Exception("Debe haber un ID");
-            }
-            usuario.UserID = userID;
-
-            Usuarios.Add(usuario);
-            return "Usuario creado exitosamente";
+            return _biblioteca.Usuarios;
         }
 
-        public string PrestarLibro(Libro libro, Usuario usuario)
+        public string PrestarLibro(string isbn, int usuarioId)
         {
-            Console.WriteLine("Ingrese el ISBN del libro a prestar:");
-            string isbn = Console.ReadLine();
-            libro.ISBN = isbn;
+            var libro = _biblioteca.LibrosDisponibles.FirstOrDefault(l => l.ISBN == isbn);
+            if (libro == null)
+                throw new ArgumentException("Libro no disponible");
 
-            Console.WriteLine("Ingrese el ID del usuario a prestar:");
-            string userID = Console.ReadLine();
-            usuario.UserID = userID;
+            var usuario = _biblioteca.Usuarios.FirstOrDefault(u => u.UserID == usuarioId);
+            if (usuario == null)
+                throw new ArgumentException("Usuario no encontrado");
 
-            //cambia obj usuariopresta y como no disponible
             libro.EstaDisponible = false;
-            libro.UsuarioIDPresta = usuario.UserID;
-
+            libro.UsuarioIDPresta = usuarioId;
             usuario.LibrosPrestados.Add(libro);
+            _biblioteca.LibrosDisponibles.Remove(libro);
 
             return "Libro prestado exitosamente";
         }
 
-        public string DevolverLibro(string ISBN, int IUserID)
+        public string DevolverLibro(string isbn, int usuarioId)
         {
-            Console.WriteLine("Ingrese el ISBN del libro a devolver:");
-            string isbn = Console.ReadLine();
+            var usuario = _biblioteca.Usuarios.FirstOrDefault(u => u.UserID == usuarioId);
+            if (usuario == null)
+                throw new ArgumentException("Usuario no encontrado");
 
-            Console.WriteLine("Ingrese el ID del usuario que devuelve:");
-            string userID = Console.ReadLine();
-            if (Usuario.)
+            var libro = usuario.LibrosPrestados.FirstOrDefault(l => l.ISBN == isbn);
+            if (libro == null)
+                throw new ArgumentException("Libro no encontrado en préstamos del usuario");
 
-                libro.EstaDisponible = true;
-            //libro.UsuarioIDPresta = 
+            libro.EstaDisponible = true;
+            libro.UsuarioIDPresta = 0;
+            usuario.LibrosPrestados.Remove(libro);
+            _biblioteca.LibrosDisponibles.Add(libro);
+
+            return "Libro devuelto exitosamente";
+        }
+
+        public string AgregarLibro(Libro libro)
+        {
+            _biblioteca.Libros.Add(libro);
+            if (libro.EstaDisponible)
+                _biblioteca.LibrosDisponibles.Add(libro);
+            return "Libro agregado exitosamente";
+        }
+
+        public string AgregarUsuario(Usuario usuario)
+        {
+            _biblioteca.Usuarios.Add(usuario);
+            return "Usuario agregado exitosamente";
         }
     }
 }

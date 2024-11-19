@@ -1,55 +1,58 @@
 ﻿using unidad_4_webapi.Models;
 
-public class LibroService
+namespace unidad_4_webapi.Servicios
 {
-    private List<Libro> _libros = new List<Libro>();
-
-    public string NuevoLibro(Libro libro)
+    public class LibroService
     {
-        if (string.IsNullOrWhiteSpace(libro.Titulo))
-            throw new ArgumentException("El título no puede estar vacío");
+        private List<Libro> _libros = new List<Libro>();
 
-        if (string.IsNullOrWhiteSpace(libro.Autor))
-            throw new ArgumentException("El autor no puede estar vacío");
+        public string NuevoLibro(Libro libro)
+        {
+            if (string.IsNullOrWhiteSpace(libro.Titulo))
+                throw new ArgumentException("El título no puede estar vacío");
 
-        if (string.IsNullOrWhiteSpace(libro.ISBN))
-            throw new ArgumentException("El ISBN no puede estar vacío");
+            if (string.IsNullOrWhiteSpace(libro.Autor))
+                throw new ArgumentException("El autor no puede estar vacío");
 
-        _libros.Add(libro);
-        return "Libro agregado exitosamente";
-    }
+            if (string.IsNullOrWhiteSpace(libro.ISBN))
+                throw new ArgumentException("El ISBN no puede estar vacío");
 
-    public Libro BuscarLibroPorISBN(string isbn)
-    {
-        return _libros.FirstOrDefault(libro => libro.ISBN == isbn);
-    }
+            _libros.Add(libro);
+            return "Libro agregado exitosamente";
+        }
 
-    public string PrestarLibro(string isbn, int usuarioId)
-    {
-        var libro = BuscarLibroPorISBN(isbn);
+        public Libro BuscarLibroPorISBN(string isbn)
+        {
+            return _libros.FirstOrDefault(libro => libro.ISBN == isbn);
+        }
 
-        if (libro == null)
-            throw new ArgumentException("Libro no encontrado");
+        public string PrestarLibro(string isbn, int usuarioId)
+        {
+            var libro = BuscarLibroPorISBN(isbn);
 
-        if (!libro.EstaDisponible)
-            throw new InvalidOperationException("Libro no disponible");
+            if (libro == null)
+                throw new ArgumentException("Libro no encontrado");
 
-        libro.EstaDisponible = false;
-        libro.UsuarioIDPresta = usuarioId;
+            if (!libro.EstaDisponible)
+                throw new InvalidOperationException("Libro no disponible");
 
-        return "Libro prestado exitosamente";
-    }
+            libro.EstaDisponible = false;
+            libro.UsuarioIDPresta = usuarioId;
 
-    public string DevolverLibro(string isbn)
-    {
-        var libro = BuscarLibroPorISBN(isbn);
+            return "Libro prestado exitosamente";
+        }
 
-        if (libro == null)
-            throw new ArgumentException("Libro no encontrado");
+        public string DevolverLibro(string isbn)
+        {
+            var libro = BuscarLibroPorISBN(isbn);
 
-        libro.EstaDisponible = true;
-        libro.UsuarioIDPresta = 0;
+            if (libro == null)
+                throw new ArgumentException("Libro no encontrado");
 
-        return "Libro devuelto exitosamente";
+            libro.EstaDisponible = true;
+            libro.UsuarioIDPresta = 0;
+
+            return "Libro devuelto exitosamente";
+        }
     }
 }

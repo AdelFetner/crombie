@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using DocumentFormat.OpenXml.Bibliography;
 using unidad_4_webapi.Servicios;
+using unidad_4_webapi.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,50 +9,55 @@ namespace unidad_4_webapi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LibraryController : ControllerBase
+    public class BibliotecaController : ControllerBase
     {
-        // GET: api/<LibraryController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly BibliotecaService _bibliotecaService;
+
+        public BibliotecaController(BibliotecaService bibliotecaService)
         {
-            return new string[] { "value1", "value2" };
+            _bibliotecaService = bibliotecaService;
         }
 
-        // GET api/<LibraryController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("libros")]
+        public ActionResult<IEnumerable<Libro>> GetLibros()
         {
-            return "value";
+            return Ok(_bibliotecaService.ObtenerTodosLibros());
         }
 
-
-        // POST api/<LibraryController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpGet("libros/disponibles")]
+        public ActionResult<IEnumerable<Libro>> GetLibrosDisponibles()
         {
+            return Ok(_bibliotecaService.ObtenerLibrosDisponibles());
         }
 
-        // PUT api/<LibraryController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpGet("usuarios")]
+        public ActionResult<IEnumerable<Usuario>> GetUsuarios()
         {
+            return Ok(_bibliotecaService.ObtenerTodosUsuarios());
         }
 
-        // DELETE api/<LibraryController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPost("libros/prestar/{isbn}/{usuarioId}")]
+        public ActionResult<string> PrestarLibro(string isbn, int usuarioId)
         {
+            return Ok(_bibliotecaService.PrestarLibro(isbn, usuarioId));
         }
 
-        // GET api/<LibraryController>/books
-        [HttpGet("{books}")]
-        public string GetBook(string isbn)
+        [HttpPost("libros/devolver/{isbn}/{usuarioId}")]
+        public ActionResult<string> DevolverLibro(string isbn, int usuarioId)
         {
-
-            List<object> libros = List<object> Libros;
-            object LibroEncontrado = libros.Find(libro.Contains(isbn));
-            return LibroEncontrado;
+            return Ok(_bibliotecaService.DevolverLibro(isbn, usuarioId));
         }
 
+        [HttpPost("libros")]
+        public ActionResult<string> AgregarLibro([FromBody] Libro libro)
+        {
+            return Ok(_bibliotecaService.AgregarLibro(libro));
+        }
+
+        [HttpPost("usuarios")]
+        public ActionResult<string> AgregarUsuario([FromBody] Usuario usuario)
+        {
+            return Ok(_bibliotecaService.AgregarUsuario(usuario));
+        }
     }
 }
