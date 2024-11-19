@@ -1,26 +1,62 @@
-﻿//using System;
-//using System.Collections;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using System.Collections.Generic;
-//using unidad_4_webapi.Servicios;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using unidad_4_webapi.Servicios;
+using unidad_4_webapi.Models;
 
-//namespace unidad_4_webapi.Servicios
-//{
-//    public class Usuario
-//    {
-//        public string Nombre { get; set; }
-//        public int UserID { get; set; }
+namespace unidad_4_webapi.Servicios
+{
+    public class UsuarioService
+{
+    private List<Usuario> _usuarios = new List<Usuario>();
 
-//        public List<object> LibrosPrestados { get; set; }
+    public string CrearUsuario(Usuario usuario)
+    {
+        if (string.IsNullOrWhiteSpace(usuario.Nombre))
+            throw new ArgumentException("El nombre no puede estar vacío");
 
-//        public Usuario(string Nombre, int UserID)
-//        {
-//            this.Nombre = Nombre;
-//            this.UserID = UserID;
-//            List<Libro> LibrosPrestados = new List<Libro>();
-//        }
-//    }
-//}
+        if (_usuarios.Any(u => u.UserID == usuario.UserID))
+            throw new ArgumentException("Ya existe un usuario con ese ID");
+
+        _usuarios.Add(usuario);
+        return "Usuario creado exitosamente";
+    }
+
+    public Usuario BuscarUsuarioPorId(int id)
+    {
+        return _usuarios.FirstOrDefault(u => u.UserID == id);
+    }
+
+    public IEnumerable<Usuario> ObtenerTodosUsuarios()
+    {
+        return _usuarios;
+    }
+
+    public string ActualizarUsuario(int id, Usuario usuario)
+    {
+        var usuarioExistente = BuscarUsuarioPorId(id);
+        if (usuarioExistente == null)
+            throw new ArgumentException("Usuario no encontrado");
+
+        usuarioExistente.Nombre = usuario.Nombre;
+        return "Usuario actualizado exitosamente";
+    }
+
+    public string EliminarUsuario(int id)
+    {
+        var usuario = BuscarUsuarioPorId(id);
+        if (usuario == null)
+            throw new ArgumentException("Usuario no encontrado");
+
+        if (usuario.LibrosPrestados.Any())
+            throw new InvalidOperationException("No se puede eliminar un usuario con libros prestados");
+
+        _usuarios.Remove(usuario);
+        return "Usuario eliminado exitosamente";
+    }
+}
+}
