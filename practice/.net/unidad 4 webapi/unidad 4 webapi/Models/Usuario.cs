@@ -1,4 +1,4 @@
-﻿namespace unidad_4_webapi.Servicios
+﻿namespace unidad_4_webapi.Models
 {
     public class Usuario
     {

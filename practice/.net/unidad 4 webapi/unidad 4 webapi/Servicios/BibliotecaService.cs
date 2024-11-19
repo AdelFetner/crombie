@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using unidad_4_webapi;
+using unidad_4_webapi.Models;
 using UsuarioComponent;
 
 namespace unidad_4_webapi.Servicios
