@@ -13,17 +13,20 @@ namespace unidad_4_webapi.Servicios
 {
     public class UsuarioService
     {
-        UsuarioData _data = new UsuarioData();
+        //UsuarioData _data;
+        //List<Usuario> Usuarios;
 
-        public List<Usuario> Usuarios = new List<Usuario>();
+
+        //public UsuarioService() 
+        //{
+        //    _data = new UsuarioData();
+        //    Usuarios = _data.GetAllUsers();
+        //}
+
+        public List<Usuario> usuariosList = new UsuarioData().usuariosList;
 
         //why doesn't this lambda fn work?
         //public List<Usuario> GetUsers = () => _data.GetAllUsers();
-
-        public List<Usuario> TraerUsuarios()
-        {
-            return Usuarios;
-        }
         //why does the code above works but the one below doesn't?
         //List<Usuario> _usuarios = _data.GetAllUsers();
 
@@ -32,25 +35,25 @@ namespace unidad_4_webapi.Servicios
             if (string.IsNullOrWhiteSpace(usuario.Nombre))
                 throw new ArgumentException("El nombre no puede estar vacío");
 
-            if (Usuarios.Any(u => u.UserID == usuario.UserID))
+            if (usuariosList.Any(u => u.UserID == usuario.UserID))
                 throw new ArgumentException("Ya existe un usuario con ese ID");
 
-            Usuarios.Add(usuario);
-            if (Usuarios.Contains(usuario))
+            usuariosList.Add(usuario);
+            if (usuariosList.Contains(usuario))
             {
-                return $"Usuario creado exitosamente, el usuario es ${usuario}, los usuarios son ${Usuarios}";
+                return $"Usuario creado exitosamente, el usuario es ${usuario}, los usuarios son ${usuariosList}";
             }
-            return "23123123";
         }
 
         public Usuario? BuscarUsuarioPorId(int id)
         {
-            return Usuarios.Find(u => u.UserID == id);
+            return usuariosList.Find(u => u.UserID == id);
         }
 
         public IEnumerable<Usuario> ObtenerTodosUsuarios()
         {
-            return TraerUsuarios();
+            var resultado = usuariosList;
+            return resultado;
         }
 
         public string ActualizarUsuario(int id, Usuario usuario)
@@ -72,7 +75,7 @@ namespace unidad_4_webapi.Servicios
             if (usuario.LibrosPrestados.Any())
                 throw new InvalidOperationException("No se puede eliminar un usuario con libros prestados");
 
-            Usuarios.Remove(usuario);
+            usuariosList.Remove(usuario);
             return "Usuario eliminado exitosamente";
         }
     }

@@ -7,6 +7,11 @@ namespace unidad_4_webapi.Data
     {
         public List<Usuario> usuariosList = new List<Usuario>();
 
+        public UsuarioData()
+        {
+            usuariosList.Add(new Usuario());
+
+        }
         public List<Usuario> GetAllUsers()
         {
             return usuariosList;
