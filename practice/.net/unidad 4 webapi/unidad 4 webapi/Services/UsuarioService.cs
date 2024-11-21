@@ -32,8 +32,8 @@ namespace unidad_4_webapi.Servicios
         //why does the code above works but the one below doesn't?
         //List<Usuario> _usuarios = _data.GetAllUsers();
 
-
         public List<Usuario> CrearUsuario(Usuario usuario)
+
         {
             if (string.IsNullOrWhiteSpace(usuario.Nombre))
                 throw new ArgumentException("El nombre no puede estar vacío");
