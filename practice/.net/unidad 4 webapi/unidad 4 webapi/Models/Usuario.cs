@@ -8,16 +8,16 @@ namespace unidad_4_webapi.Models
         public int UserID { get; set; }
         public List<Libro> LibrosPrestados { get; set; }
 
-        public Usuario(string Nombre, int UserID)
+        public Usuario(string Nombre, int UserID, List<Libro> LibrosPrestados)
         {
             this.Nombre = Nombre;
             this.UserID = UserID;
-            LibrosPrestados = new List<Libro>();
+            this.LibrosPrestados = LibrosPrestados;
         }
 
         public Usuario() 
         {
-            LibrosPrestados = new List<Libro>();
+            
         }
     }
 }

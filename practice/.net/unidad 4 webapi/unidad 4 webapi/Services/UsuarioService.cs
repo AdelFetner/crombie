@@ -13,24 +13,27 @@ namespace unidad_4_webapi.Servicios
 {
     public class UsuarioService
     {
-        //UsuarioData _data;
+        List<Usuario> usuariosList;
+        List<Usuario> allUsers;
         //List<Usuario> Usuarios;
 
 
-        //public UsuarioService() 
-        //{
-        //    _data = new UsuarioData();
-        //    Usuarios = _data.GetAllUsers();
-        //}
+        public UsuarioService()
+        {
+            usuariosList = new UsuarioData().usuariosList;
+            allUsers = new UsuarioData().GetAllUsers();
+            //Usuarios = _data.GetAllUsers();
+        }
 
-        public List<Usuario> usuariosList = new UsuarioData().usuariosList;
+        //public List<Usuario> usuariosList = new UsuarioData().usuariosList;
 
         //why doesn't this lambda fn work?
         //public List<Usuario> GetUsers = () => _data.GetAllUsers();
         //why does the code above works but the one below doesn't?
         //List<Usuario> _usuarios = _data.GetAllUsers();
 
-        public string CrearUsuario(Usuario usuario)
+
+        public List<Usuario> CrearUsuario(Usuario usuario)
         {
             if (string.IsNullOrWhiteSpace(usuario.Nombre))
                 throw new ArgumentException("El nombre no puede estar vacío");
@@ -41,7 +44,11 @@ namespace unidad_4_webapi.Servicios
             usuariosList.Add(usuario);
             if (usuariosList.Contains(usuario))
             {
-                return $"Usuario creado exitosamente, el usuario es ${usuario}, los usuarios son ${usuariosList}";
+                return usuariosList;
+            }
+            else
+            {
+                return usuariosList;
             }
         }
 
@@ -52,8 +59,7 @@ namespace unidad_4_webapi.Servicios
 
         public IEnumerable<Usuario> ObtenerTodosUsuarios()
         {
-            var resultado = usuariosList;
-            return resultado;
+            return allUsers;
         }
 
         public string ActualizarUsuario(int id, Usuario usuario)

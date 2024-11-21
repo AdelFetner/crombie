@@ -10,8 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services
     .AddScoped<LibroService>()
-    .AddScoped<UsuarioService>()
-    .AddScoped<BibliotecaService>();
+    .AddScoped<UsuarioService>();
 
 var app = builder.Build();
 
