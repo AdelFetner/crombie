@@ -11,6 +11,8 @@ namespace unidad_4_webapi.Controllers
     public class ExcelController : ControllerBase
     {
         private readonly ExcelService _excelService;
+        // Especifica la ruta relativa del archivo Excel
+        string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BibliotecaBaseDatos.xlsx");
 
         public ExcelController(ExcelService excelService)
         {
@@ -22,8 +24,6 @@ namespace unidad_4_webapi.Controllers
         {
             try
             {
-                // Especifica la ruta relativa del archivo Excel
-                string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BibliotecaBaseDatos.xlsx");
                 return _excelService.ObtenerEncabezados(filePath);
             }
             catch (Exception ex)
