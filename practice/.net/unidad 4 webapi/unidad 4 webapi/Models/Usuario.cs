@@ -4,20 +4,23 @@ namespace unidad_4_webapi.Models
 {
     public class Usuario
     {
-        public string Nombre { get; set; }
-        public int UserID { get; set; }
-        public List<Libro> LibrosPrestados { get; set; }
+        public string IDUsuario { get; set; }
 
-        public Usuario(string Nombre, int UserID, List<Libro> LibrosPrestados)
+        public string Nombre { get; set; }
+
+        public string TipoUsuario { get; set; }
+
+        public string LibrosPrestados { get; set; }
+
+        public Usuario(string idUsuario, string nombre, string tipoUsuario, string librosPrestados)
         {
-            this.Nombre = Nombre;
-            this.UserID = UserID;
-            this.LibrosPrestados = LibrosPrestados;
+            this.IDUsuario = idUsuario;
+            this.Nombre = nombre;
+            this.TipoUsuario = tipoUsuario;
+            this.LibrosPrestados = librosPrestados;
         }
 
-        public Usuario() 
-        {
-            
+        public Usuario() {
         }
     }
 }
