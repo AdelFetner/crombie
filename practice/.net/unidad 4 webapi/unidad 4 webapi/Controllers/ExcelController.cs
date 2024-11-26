@@ -12,7 +12,7 @@ namespace unidad_4_webapi.Controllers
     {
         private readonly ExcelService _excelService;
         // Especifica la ruta relativa del archivo Excel
-        string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BibliotecaBaseDatos.xlsx");
+        string filePath = "BibliotecaBaseDatos.xlsx";
 
         public ExcelController(ExcelService excelService)
         {

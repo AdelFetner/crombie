@@ -103,6 +103,7 @@ namespace unidad_4_webapi.Services
                         worksheet.Cell(row, 2).Value = datosActualizados.Nombre;
                         worksheet.Cell(row, 3).Value = datosActualizados.Accion;
                         worksheet.Cell(row, 4).Value = datosActualizados.Libro;
+                        Console.WriteLine(datosActualizados);
                         encontrado = true;
                         break;
                     }
