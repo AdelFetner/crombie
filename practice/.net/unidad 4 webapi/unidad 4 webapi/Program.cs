@@ -1,3 +1,4 @@
+using unidad_4_webapi.Services;
 using unidad_4_webapi.Servicios;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services
     .AddScoped<LibroService>()
-    .AddScoped<UsuarioService>();
+    .AddScoped<UsuarioService>()
+    .AddScoped<ExcelService>();
 
 var app = builder.Build();
 

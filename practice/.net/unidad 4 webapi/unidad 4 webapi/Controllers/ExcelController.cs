@@ -22,11 +22,14 @@ namespace unidad_4_webapi.Controllers
         {
             try
             {
-                _excelService.ObtenerEncabezados();
+                // Especifica la ruta relativa del archivo Excel
+                string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BibliotecaBaseDatos.xlsx");
+                return _excelService.ObtenerEncabezados(filePath);
             }
-            catch
+            catch (Exception ex)
             {
-
+                // Manejo de excepciones
+                return new List<string> { "Error al obtener los encabezados: " + ex.Message };
             }
         }
 
