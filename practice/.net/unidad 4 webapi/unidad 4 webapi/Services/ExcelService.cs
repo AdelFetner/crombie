@@ -29,7 +29,7 @@ namespace unidad_4_webapi.Services
 
         // Función para obtener los datos de un archivo Excel y mapearlos a una lista de objetos de Excel.
         // Esta función abre el archivo, lee cada fila y mapea los valores a las propiedades de Excel.
-        public List<Excel> ObtenerDatos(string filePath)
+        public List<Excel> ObtenerDatosUsuarios(string filePath)
         {
             var dataList = new List<Excel>();
 
@@ -43,17 +43,16 @@ namespace unidad_4_webapi.Services
                 int lastRowUsed = worksheet.LastRowUsed().RowNumber();
 
                 // Recorre cada fila de datos, comenzando desde la segunda fila (omitiendo los encabezados).
-                for (int row = 2; row <= lastRowUsed; row++)
+                for (int row = 3; row <= lastRowUsed; row++)
                 {
                     // Crea una instancia de Excel y asigna valores a sus propiedades desde las celdas de la fila actual.
                     var dataItem = new Excel
                     {
-                        ID = worksheet.Cell(row, 1).GetValue<string>(), // Lee el valor de la columna 1
-                        Nombre = worksheet.Cell(row, 2).GetValue<string>(), // Lee el valor de la columna 2
-                        Edad = worksheet.Cell(row, 3).GetValue<int>() // Lee el valor de la columna 3
+                        ID = worksheet.Cell(row, 1).GetValue<string>(),
+                        Nombre = worksheet.Cell(row, 2).GetValue<string>(),
+                        Accion = worksheet.Cell(row, 3).GetValue<string>(),
+                        Libro = worksheet.Cell(row, 4).GetValue<string>()
                     };
-
-                    // Agrega el objeto mapeado a la lista de resultados.
                     dataList.Add(dataItem);
                 }
             }
@@ -65,39 +64,32 @@ namespace unidad_4_webapi.Services
         // Esta función abre el archivo, encuentra la última fila utilizada e inserta los nuevos datos a partir de esa posición.
         public void InsertarDatos(string filePath, List<Excel> nuevosDatos)
         {
-            // Abre el archivo Excel en la ruta especificada.
             using (var workbook = new XLWorkbook(filePath))
             {
-                // Selecciona la primera hoja del archivo.
                 var worksheet = workbook.Worksheet(1);
-
-                // Encuentra el número de la última fila utilizada en la hoja.
                 int lastRowUsed = worksheet.LastRowUsed().RowNumber();
 
-                // Recorre la lista de objetos y los inserta como nuevas filas en el archivo Excel.
                 foreach (var item in nuevosDatos)
                 {
                     lastRowUsed++; // Mueve a la siguiente fila disponible
 
-                    // Inserta los valores en las columnas correspondientes de la nueva fila.
+                    // Inserta los valores en las columnas correspondientes de la nueva fila
                     worksheet.Cell(lastRowUsed, 1).Value = item.ID;
                     worksheet.Cell(lastRowUsed, 2).Value = item.Nombre;
-                    worksheet.Cell(lastRowUsed, 3).Value = item.Edad;
+                    worksheet.Cell(lastRowUsed, 3).Value = item.Accion;
+                    worksheet.Cell(lastRowUsed, 4).Value = item.Libro;
                 }
 
-                // Guarda los cambios en el archivo.
                 workbook.Save();
             }
-
             Console.WriteLine("Datos insertados exitosamente en el archivo Excel.");
         }
 
-        // Función para actualizar datos en el archivo Excel según ID
         public void ActualizarDatosPorId(string filePath, Excel datosActualizados)
         {
             using (var workbook = new XLWorkbook(filePath))
             {
-                var worksheet = workbook.Worksheet(1); // Selecciona la primera hoja
+                var worksheet = workbook.Worksheet(1);
                 int lastRowUsed = worksheet.LastRowUsed().RowNumber();
                 bool encontrado = false;
 
@@ -109,7 +101,8 @@ namespace unidad_4_webapi.Services
                     if (idActual == datosActualizados.ID)
                     {
                         worksheet.Cell(row, 2).Value = datosActualizados.Nombre;
-                        worksheet.Cell(row, 3).Value = datosActualizados.Edad;
+                        worksheet.Cell(row, 3).Value = datosActualizados.Accion;
+                        worksheet.Cell(row, 4).Value = datosActualizados.Libro;
                         encontrado = true;
                         break;
                     }
@@ -117,7 +110,7 @@ namespace unidad_4_webapi.Services
 
                 if (encontrado)
                 {
-                    workbook.Save(); // Guarda los cambios en el archivo
+                    workbook.Save();
                     Console.WriteLine("Datos actualizados exitosamente en el archivo Excel.");
                 }
                 else

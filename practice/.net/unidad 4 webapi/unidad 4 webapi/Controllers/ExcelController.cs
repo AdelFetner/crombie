@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using unidad_4_webapi.Data;
+using unidad_4_webapi.Models;
 using unidad_4_webapi.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,44 +18,68 @@ namespace unidad_4_webapi.Controllers
         {
             _excelService = excelService;
         }
-        // GET: api/<ExcelController>
-        [HttpGet]
-        public IEnumerable<string> GetEncabezados()
+
+        //diferencias entre como está arriba y
+        //public class ExcelController(ExcelService excelService) : ControllerBase
+        //        {
+        //            private readonly ExcelService _excelService = excelService;
+
+            // GET: api/<ExcelController>
+            [HttpGet]
+        public ActionResult<IEnumerable<string>> GetEncabezados()
         {
             try
             {
-                return _excelService.ObtenerEncabezados(filePath);
+                return Ok(_excelService.ObtenerEncabezados(filePath));
             }
             catch (Exception ex)
             {
-                // Manejo de excepciones
-                return new List<string> { "Error al obtener los encabezados: " + ex.Message };
+                return StatusCode(500, $"Error al obtener los encabezados: {ex.Message}");
             }
         }
 
-        // GET api/<ExcelController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        //datos route
+        [HttpGet("datos")]
+        public ActionResult<List<Excel>> GetDatos()
         {
-            return "value";
+            try
+            {
+                return Ok(_excelService.ObtenerDatosUsuarios(filePath));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al obtener los datos: {ex.Message}");
+            }
         }
 
-        // POST api/<ExcelController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        // POST: api/Excel/insertar
+        [HttpPost("insertar")]
+        public ActionResult InsertarDatos([FromBody] List<Excel> nuevosDatos)
         {
+            try
+            {
+                _excelService.InsertarDatos(filePath, nuevosDatos);
+                return Ok("Datos insertados exitosamente");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al insertar datos: {ex.Message}");
+            }
         }
 
-        // PUT api/<ExcelController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT: api/Excel/actualizar
+        [HttpPut("actualizar")]
+        public ActionResult ActualizarDatos([FromBody] Excel datosActualizados)
         {
-        }
-
-        // DELETE api/<ExcelController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            try
+            {
+                _excelService.ActualizarDatosPorId(filePath, datosActualizados);
+                return Ok("Datos actualizados exitosamente");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al actualizar datos: {ex.Message}");
+            }
         }
     }
 }
