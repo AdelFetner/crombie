@@ -19,13 +19,7 @@ namespace unidad_4_webapi.Controllers
             _excelService = excelService;
         }
 
-        //diferencias entre como está arriba y
-        //public class ExcelController(ExcelService excelService) : ControllerBase
-        //        {
-        //            private readonly ExcelService _excelService = excelService;
-
-            // GET: api/<ExcelController>
-            [HttpGet]
+        [HttpGet]
         public ActionResult<IEnumerable<string>> GetEncabezados()
         {
             try
