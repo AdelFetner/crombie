@@ -1,10 +1,9 @@
 ﻿using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Spreadsheet;
 using unidad_4_webapi.Models;
 
-namespace unidad_4_webapi.Data
+namespace unidad_4_webapi.Services
 {
-    public class ExcelData
+    public class ExcelService
     {
         public List<string> ObtenerEncabezados(string filePath)
         {
@@ -116,7 +115,7 @@ namespace unidad_4_webapi.Data
                     }
                 }
 
-                if  (encontrado)
+                if (encontrado)
                 {
                     workbook.Save(); // Guarda los cambios en el archivo
                     Console.WriteLine("Datos actualizados exitosamente en el archivo Excel.");

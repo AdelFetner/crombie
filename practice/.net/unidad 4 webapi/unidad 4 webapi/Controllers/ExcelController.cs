@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using unidad_4_webapi.Data;
+using unidad_4_webapi.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,13 +10,19 @@ namespace unidad_4_webapi.Controllers
     [ApiController]
     public class ExcelController : ControllerBase
     {
+        private readonly ExcelService _excelService;
+
+        public ExcelController(ExcelService excelService)
+        {
+            _excelService = excelService;
+        }
         // GET: api/<ExcelController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<string> GetEncabezados()
         {
             try
             {
-                Obtener
+                _excelService.ObtenerEncabezados();
             }
             catch
             {
