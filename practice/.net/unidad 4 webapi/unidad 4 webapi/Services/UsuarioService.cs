@@ -17,23 +17,17 @@ namespace unidad_4_webapi.Servicios
     {
         List<Usuario> usuariosList;
         List<Usuario> allUsers;
-        //List<Usuario> Usuarios;
 
+
+        // Especifica la ruta relativa del archivo Excel
+        string filePath = "BibliotecaBaseDatos.xlsx";
 
         public UsuarioService()
         {
             usuariosList = new UsuarioData().usuariosList;
             allUsers = new UsuarioData().GetAllUsers();
-            //Usuarios = _data.GetAllUsers();
         }
-
-        //public List<Usuario> usuariosList = new UsuarioData().usuariosList;
-
-        //why doesn't this lambda fn work?
-        //public List<Usuario> GetUsers = () => _data.GetAllUsers();
-        //why does the code above works but the one below doesn't?
-        //List<Usuario> _usuarios = _data.GetAllUsers();
-        public List<Usuario> ObtenerUsuarios(string filePath)
+        public List<Usuario> ObtenerUsuarios()
         {
             using (var workbook = new XLWorkbook(filePath))
             {
@@ -62,7 +56,7 @@ namespace unidad_4_webapi.Servicios
             }
         }
 
-        public List<Usuario> InsertarUsuarios(string filePath, List<Usuario> NuevosUsuarios)
+        public List<Usuario> InsertarUsuarios(List<Usuario> NuevosUsuarios)
         {
             using (var workbook = new XLWorkbook(filePath))
             {
@@ -74,7 +68,7 @@ namespace unidad_4_webapi.Servicios
                     lastRowUsed++; // Mueve a la siguiente fila disponible
 
                     // Inserta los valores en las columnas correspondientes de la nueva fila
-                    worksheet.Cell(lastRowUsed, 1).Value = usuario.IDUsuario;
+                    worksheet.Cell(lastRowUsed, 1).Value = Int32.Parse(usuario.IDUsuario);
                     worksheet.Cell(lastRowUsed, 2).Value = usuario.Nombre;
                     worksheet.Cell(lastRowUsed, 3).Value = usuario.TipoUsuario;
                     worksheet.Cell(lastRowUsed, 4).Value = usuario.LibrosPrestados;
@@ -85,13 +79,13 @@ namespace unidad_4_webapi.Servicios
             return NuevosUsuarios;
         }
 
-        public Usuario? BuscarUsuarioPorId(int id)
+        public Usuario? BuscarUsuarioPorId(string id)
         {
             return usuariosList.Find(u => u.IDUsuario == id);
         }
 
 
-        public string ActualizarUsuario(int id, Usuario usuario)
+        public string ActualizarUsuario(string id, Usuario usuario)
         {
             var usuarioExistente = BuscarUsuarioPorId(id);
             if (usuarioExistente == null)
@@ -101,7 +95,7 @@ namespace unidad_4_webapi.Servicios
             return "Usuario actualizado exitosamente";
         }
 
-        public string EliminarUsuario(int id)
+        public string EliminarUsuario(string id)
         {
             var usuario = BuscarUsuarioPorId(id);
             if (usuario == null)

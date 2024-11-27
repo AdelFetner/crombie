@@ -24,26 +24,26 @@ namespace unidad_4_webapi.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Usuario> GetUsuario(int id)
+        public ActionResult<Usuario> GetUsuario(string id)
         {
             var usuario = _usuarioService.BuscarUsuarioPorId(id);
             return usuario != null ? Ok(usuario) : NotFound();
         }
 
         [HttpPost]
-        public ActionResult<string> CrearUsuario([FromBody] Usuario usuario)
+        public ActionResult<string> CrearUsuario([FromBody] List<Usuario> NuevosUsuarios)
         {
-            return Ok(_usuarioService.CrearUsuario(usuario));
+            return Ok(_usuarioService.InsertarUsuarios(NuevosUsuarios));
         }
 
         [HttpPut("{id}")]
-        public ActionResult<string> ActualizarUsuario(int id, [FromBody] Usuario usuario)
+        public ActionResult<string> ActualizarUsuario(string id, [FromBody] Usuario usuario)
         {
             return Ok(_usuarioService.ActualizarUsuario(id, usuario));
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<string> EliminarUsuario(int id)
+        public ActionResult<string> EliminarUsuario(string id)
         {
             return Ok(_usuarioService.EliminarUsuario(id));
         }
