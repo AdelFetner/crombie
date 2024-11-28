@@ -20,7 +20,7 @@ namespace unidad_4_webapi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Usuario>> GetUsuarios()
         {
-            return Ok(_usuarioService.ObtenerUsuarios());
+            return Ok(_usuarioService.GetIDsFromUsers());
         }
 
         [HttpGet("{id}")]

@@ -42,5 +42,4 @@ namespace unidad_4_webapi.Controllers
             return Ok(_libroService.EliminarLibro(idLibro));
         }
     }
-
 }

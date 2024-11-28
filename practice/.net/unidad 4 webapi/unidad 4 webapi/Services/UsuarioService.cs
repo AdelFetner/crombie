@@ -10,6 +10,8 @@ using unidad_4_webapi.Models;
 using unidad_4_webapi.Data;
 using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Drawing;
+using Microsoft.Data.SqlClient;
+using Dapper;
 
 namespace unidad_4_webapi.Services
 {
@@ -148,6 +150,19 @@ namespace unidad_4_webapi.Services
             }
 
             return usuario;
+        }
+
+        public List<Usuario> GetIDsFromUsers()
+        {
+            var connectionString = "Server=localhost;    Database=biblioteca;   Integrated Security=true; TrustServerCertificate=True;";
+
+            var connection = new SqlConnection(connectionString);
+
+            var sql = "SELECT * FROM Usuarios";
+
+            var idUsuarios = connection.Query<Usuario>(sql).ToList();
+
+            return idUsuarios;
         }
     }
 }
