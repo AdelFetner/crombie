@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using unidad_4_webapi.Servicios;
+using unidad_4_webapi.Services;
 using unidad_4_webapi.Models;
 using unidad_4_webapi.Data;
 using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Drawing;
 
-namespace unidad_4_webapi.Servicios
+namespace unidad_4_webapi.Services
 {
     public class UsuarioService
     {

@@ -2,7 +2,7 @@
 using DocumentFormat.OpenXml.Spreadsheet;
 using unidad_4_webapi.Models;
 
-namespace unidad_4_webapi.Servicios
+namespace unidad_4_webapi.Services
 {
     public class LibroService
     {

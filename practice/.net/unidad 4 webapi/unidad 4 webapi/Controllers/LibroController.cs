@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using unidad_4_webapi.Models;
-using unidad_4_webapi.Servicios;
+using unidad_4_webapi.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -36,7 +36,7 @@ namespace unidad_4_webapi.Controllers
             return Ok(_libroService.ActualizarLibro(libro));
         }
 
-        [HttpPut("devolver/{isbn}")]
+        [HttpPut("delete/{id}")]
         public ActionResult<string> EliminarLibro(string idLibro)
         {
             return Ok(_libroService.EliminarLibro(idLibro));
