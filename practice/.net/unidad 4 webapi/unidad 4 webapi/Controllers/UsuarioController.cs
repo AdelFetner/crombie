@@ -37,7 +37,7 @@ namespace unidad_4_webapi.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<string> ActualizarUsuario(string id, [FromBody] Usuario usuario)
+        public ActionResult<string> ActualizarUsuario([FromBody] Usuario usuario)
         {
             return Ok(_usuarioService.ActualizarUsuario(usuario));
         }

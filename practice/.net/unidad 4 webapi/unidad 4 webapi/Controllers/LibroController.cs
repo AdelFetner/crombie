@@ -20,26 +20,26 @@ namespace unidad_4_webapi.Controllers
         [HttpPost("libro")]
         public ActionResult<string> CrearLibro(Libro libro)
         {
-            return Ok(_libroService.NuevoLibro(libro));
+            return Ok(_libroService.InsertarLibro(libro));
         }
 
-        [HttpGet("libro/{isbn}")]
-        public ActionResult<Libro> BuscarLibro(string isbn)
+        [HttpGet("libro/{id}")]
+        public ActionResult<Libro> BuscarLibro(string id)
         {
-            var libro = _libroService.BuscarLibroPorISBN(isbn);
+            var libro = _libroService.BuscarLibroPorId(id);
             return libro != null ? Ok(libro) : NotFound();
         }
 
-        [HttpPut("prestar/{isbn}/{usuarioId}")]
-        public ActionResult<string> PrestarLibro(string isbn, int usuarioId)
+        [HttpPut("update/{id}")]
+        public ActionResult<string> ActualizarLibro(Libro libro)
         {
-            return Ok(_libroService.PrestarLibro(isbn, usuarioId));
+            return Ok(_libroService.ActualizarLibro(libro));
         }
 
         [HttpPut("devolver/{isbn}")]
-        public ActionResult<string> DevolverLibro(string isbn)
+        public ActionResult<string> EliminarLibro(string idLibro)
         {
-            return Ok(_libroService.DevolverLibro(isbn));
+            return Ok(_libroService.EliminarLibro(idLibro));
         }
     }
 
