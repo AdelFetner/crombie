@@ -15,18 +15,19 @@ namespace unidad_4_webapi.Servicios
 {
     public class UsuarioService
     {
-        List<Usuario> usuariosList;
+
+        private List<Usuario> _usuarios;
         // Especifica la ruta relativa del archivo Excel
-        string filePath = "BibliotecaBaseDatos.xlsx";
-        List<Usuario> dataList;
+        readonly string filePath = "BibliotecaBaseDatos.xlsx";
 
         public UsuarioService()
         {
-            usuariosList = new UsuarioData().usuariosList;
-            var dataList = new List<Usuario>();
+            _usuarios = ObtenerUsuarios();
         }
         public List<Usuario> ObtenerUsuarios()
         {
+            var dataList = new List<Usuario>();
+
             using (var workbook = new XLWorkbook(filePath))
             {
 
@@ -78,31 +79,53 @@ namespace unidad_4_webapi.Servicios
 
         public Usuario? BuscarUsuarioPorId(string id)
         {
-            return usuariosList.Find(u => u.IDUsuario == id);
+            return _usuarios.FirstOrDefault(u => u.IDUsuario == id);
         }
 
 
-        public string ActualizarUsuario(string id, Usuario usuario)
+        public Usuario ActualizarUsuario(Usuario datosActualizados)
         {
-            var usuarioExistente = BuscarUsuarioPorId(id);
-            if (usuarioExistente == null)
-                throw new ArgumentException("Usuario no encontrado");
+            using (var workbook = new XLWorkbook(filePath))
+            {
+                var worksheet = workbook.Worksheet(1);
+                int lastRowUsed = worksheet.LastRowUsed().RowNumber();
+                bool encontrado = false;
 
-            usuarioExistente.Nombre = usuario.Nombre;
-            return "Usuario actualizado exitosamente";
+                // Buscar la fila donde el ID coincide y actualizar los datos
+                for (int row = 2; row <= lastRowUsed; row++)
+                {
+                    string idActual = worksheet.Cell(row, 1).GetValue<string>();
+
+                    if (idActual == datosActualizados.IDUsuario)
+                    {
+                        worksheet.Cell(row, 2).Value = datosActualizados.Nombre;
+                        worksheet.Cell(row, 3).Value = datosActualizados.TipoUsuario;
+                        worksheet.Cell(row, 4).Value = datosActualizados.LibrosPrestados;
+                        encontrado = true;
+                        break;
+                    }
+                }
+
+                if (encontrado)
+                {
+                    workbook.Save();
+                    return datosActualizados;
+                }
+                throw new InvalidOperationException("No se encontró un registro con el ID especificado.");
+            }
         }
 
-        public string EliminarUsuario(string id)
-        {
-            var usuario = BuscarUsuarioPorId(id);
-            if (usuario == null)
-                throw new ArgumentException("Usuario no encontrado");
+        //public string EliminarUsuario(string id)
+        //{
+        //    var usuario = BuscarUsuarioPorId(id);
+        //    if (usuario == null)
+        //        throw new ArgumentException("Usuario no encontrado");
 
-            if (usuario.LibrosPrestados.Any())
-                throw new InvalidOperationException("No se puede eliminar un usuario con libros prestados");
+        //    if (usuario.LibrosPrestados.Any())
+        //        throw new InvalidOperationException("No se puede eliminar un usuario con libros prestados");
 
-            usuariosList.Remove(usuario);
-            return "Usuario eliminado exitosamente";
-        }
+        //    usuariosList.Remove(usuario);
+        //    return "Usuario eliminado exitosamente";
+        //}
     }
 }

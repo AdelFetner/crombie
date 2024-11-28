@@ -39,13 +39,13 @@ namespace unidad_4_webapi.Controllers
         [HttpPut("{id}")]
         public ActionResult<string> ActualizarUsuario(string id, [FromBody] Usuario usuario)
         {
-            return Ok(_usuarioService.ActualizarUsuario(id, usuario));
+            return Ok(_usuarioService.ActualizarUsuario(usuario));
         }
 
-        [HttpDelete("{id}")]
-        public ActionResult<string> EliminarUsuario(string id)
-        {
-            return Ok(_usuarioService.EliminarUsuario(id));
-        }
+        //[HttpDelete("{id}")]
+        //public ActionResult<string> EliminarUsuario(string id)
+        //{
+        //    return Ok(_usuarioService.EliminarUsuario(id));
+        //}
     }
 }
