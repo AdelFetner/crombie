@@ -63,6 +63,10 @@ namespace unidad_4_webapi.Servicios
 
                 foreach (var usuario in NuevosUsuarios)
                 {
+                    if (_usuarios.Any(u => u.IDUsuario == usuario.IDUsuario)){
+                        throw new InvalidOperationException("El usuario con el ID especificado ya existe.");
+                    }
+
                     lastRowUsed++; // Mueve a la siguiente fila disponible
 
                     // Inserta los valores en las columnas correspondientes de la nueva fila
@@ -115,17 +119,35 @@ namespace unidad_4_webapi.Servicios
             }
         }
 
-        //public string EliminarUsuario(string id)
-        //{
-        //    var usuario = BuscarUsuarioPorId(id);
-        //    if (usuario == null)
-        //        throw new ArgumentException("Usuario no encontrado");
+        public Usuario EliminarUsuario(string id)
+        {
+            var usuario = BuscarUsuarioPorId(id);
+            if (usuario == null)
+                throw new ArgumentException("Usuario no encontrado");
 
-        //    if (usuario.LibrosPrestados.Any())
-        //        throw new InvalidOperationException("No se puede eliminar un usuario con libros prestados");
+            if (usuario.LibrosPrestados.Any())
+                throw new InvalidOperationException("No se puede eliminar un usuario con libros prestados antes de devolverlos");
 
-        //    usuariosList.Remove(usuario);
-        //    return "Usuario eliminado exitosamente";
-        //}
+            using (var workbook = new XLWorkbook(filePath))
+            {
+                var worksheet = workbook.Worksheet(1);
+                int lastRowUsed = worksheet.LastRowUsed().RowNumber();
+
+                // Buscar y eliminar la fila correspondiente al ID
+                for (int row = 2; row <= lastRowUsed; row++)
+                {
+                    string idActual = worksheet.Cell(row, 1).GetValue<string>();
+                    if (idActual == id)
+                    {
+                        worksheet.Row(row).Delete();
+                        break;
+                    }
+                }
+
+                workbook.Save();
+            }
+
+            return usuario;
+        }
     }
 }

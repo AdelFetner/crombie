@@ -42,10 +42,10 @@ namespace unidad_4_webapi.Controllers
             return Ok(_usuarioService.ActualizarUsuario(usuario));
         }
 
-        //[HttpDelete("{id}")]
-        //public ActionResult<string> EliminarUsuario(string id)
-        //{
-        //    return Ok(_usuarioService.EliminarUsuario(id));
-        //}
+        [HttpDelete("{id}")]
+        public ActionResult<string> EliminarUsuario(string id)
+        {
+            return Ok(_usuarioService.EliminarUsuario(id));
+        }
     }
 }
