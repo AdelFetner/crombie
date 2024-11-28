@@ -96,7 +96,7 @@ namespace unidad_4_webapi.Servicios
                 bool encontrado = false;
 
                 // Buscar la fila donde el ID coincide y actualizar los datos
-                for (int row = 2; row <= lastRowUsed; row++)
+                for (int row = 3; row <= lastRowUsed; row++)
                 {
                     string idActual = worksheet.Cell(row, 1).GetValue<string>();
 

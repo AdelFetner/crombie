@@ -1,58 +1,133 @@
-﻿using unidad_4_webapi.Models;
+﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
+using unidad_4_webapi.Models;
 
 namespace unidad_4_webapi.Servicios
 {
     public class LibroService
     {
+        readonly string filePath = "BibliotecaBaseDatos.xlsx";
+
         private List<Libro> _libros = new List<Libro>();
-
-        public string NuevoLibro(Libro libro)
+        public LibroService()
         {
-            if (string.IsNullOrWhiteSpace(libro.Titulo))
-                throw new ArgumentException("El título no puede estar vacío");
-
-            if (string.IsNullOrWhiteSpace(libro.Autor))
-                throw new ArgumentException("El autor no puede estar vacío");
-
-            if (string.IsNullOrWhiteSpace(libro.ISBN))
-                throw new ArgumentException("El ISBN no puede estar vacío");
-
-            _libros.Add(libro);
-            return "Libro agregado exitosamente";
+            _libros = ObtenerLibros();
         }
 
-        public Libro BuscarLibroPorISBN(string isbn)
+        public List<Libro> ObtenerLibros()
         {
-            return _libros.FirstOrDefault(libro => libro.ISBN == isbn);
+            var libros = new List<Libro>();
+
+            using (var workbook = new XLWorkbook(filePath))
+            {
+                // Accede a la tercera hoja (los libros).
+                var worksheet = workbook.Worksheet(3);
+                int lastRowUsed = worksheet.LastRowUsed().RowNumber();
+
+                // Recorre todas las filas con datos.
+                for (int row = 3; row <= lastRowUsed; row++)
+                {
+                    var libro = new Libro
+                    {
+                        IdLibro = worksheet.Cell(row, 1).GetValue<string>(),
+                        Titulo = worksheet.Cell(row, 2).GetValue<string>(),
+                        Autor = worksheet.Cell(row, 3).GetValue<string>(),
+                        Disponibilidad = worksheet.Cell(row, 4).GetValue<string>(),
+                        Cantidad = worksheet.Cell(row, 5).GetValue<int>()
+                    };
+                    libros.Add(libro);
+                }
+            }
+            return libros;
+        }
+        public Libro InsertarLibro(Libro nuevoLibro)
+        {
+            using (var workbook = new XLWorkbook(filePath))
+            {
+                var worksheet = workbook.Worksheet(3);  // Asegúrate de que es la hoja correcta
+                int lastRowUsed = worksheet.LastRowUsed().RowNumber();
+
+                lastRowUsed++;  // Avanza a la siguiente fila disponible
+
+                // Inserta los valores del nuevo libro
+                worksheet.Cell(lastRowUsed, 1).Value = Int32.Parse(nuevoLibro.IdLibro);
+                worksheet.Cell(lastRowUsed, 2).Value = nuevoLibro.Titulo;
+                worksheet.Cell(lastRowUsed, 3).Value = nuevoLibro.Autor;
+                worksheet.Cell(lastRowUsed, 4).Value = nuevoLibro.Disponibilidad;
+                worksheet.Cell(lastRowUsed, 5).Value = nuevoLibro.Cantidad;
+
+                workbook.Save();
+            }
+
+            return nuevoLibro;
         }
 
-        public string PrestarLibro(string isbn, int usuarioId)
+        public Libro? BuscarLibroPorId(string id)
         {
-            var libro = BuscarLibroPorISBN(isbn);
+            return _libros.FirstOrDefault(u => u.IdLibro == id);
+        }
 
+        public Libro ActualizarLibro(Libro libroActualizado)
+        {
+            using (var workbook = new XLWorkbook(filePath))
+            {
+                var worksheet = workbook.Worksheet(3);  // Asegúrate de que es la hoja correcta
+                int lastRowUsed = worksheet.LastRowUsed().RowNumber();
+                bool encontrado = false;
+
+                // Buscar la fila donde el IdLibro coincide y actualizar los datos
+                for (int row = 3; row <= lastRowUsed; row++)
+                {
+                    string idActual = worksheet.Cell(row, 1).GetValue<string>(); // Columna A (IdLibro)
+
+                    if (idActual == libroActualizado.IdLibro)
+                    {
+                        worksheet.Cell(row, 2).Value = libroActualizado.Titulo;
+                        worksheet.Cell(row, 3).Value = libroActualizado.Autor;
+                        worksheet.Cell(row, 4).Value = libroActualizado.Disponibilidad;
+                        worksheet.Cell(row, 5).Value = libroActualizado.Cantidad;
+                        encontrado = true;
+                        break;
+                    }
+                }
+
+                if (encontrado)
+                {
+                    workbook.Save();
+                    return libroActualizado;
+                }
+                throw new InvalidOperationException("No se encontró un registro con el ID especificado.");
+            }
+        }
+
+        public Libro EliminarLibro(string idLibro)
+        {
+            var libro = BuscarLibroPorId(idLibro);
             if (libro == null)
                 throw new ArgumentException("Libro no encontrado");
 
-            if (!libro.EstaDisponible)
-                throw new InvalidOperationException("Libro no disponible");
+            // Agrega validaciones adicionales si es necesario, como si el libro está prestado.
 
-            libro.EstaDisponible = false;
-            libro.UsuarioIDPresta = usuarioId;
+            using (var workbook = new XLWorkbook(filePath))
+            {
+                var worksheet = workbook.Worksheet(3); // Asegúrate de la hoja correcta
+                int lastRowUsed = worksheet.LastRowUsed().RowNumber();
 
-            return "Libro prestado exitosamente";
-        }
+                // Buscar y eliminar la fila correspondiente al ID
+                for (int row = 3; row <= lastRowUsed; row++)
+                {
+                    string idActual = worksheet.Cell(row, 1).GetValue<string>();
+                    if (idActual == idLibro)
+                    {
+                        worksheet.Row(row).Delete();
+                        break;
+                    }
+                }
 
-        public string DevolverLibro(string isbn)
-        {
-            var libro = BuscarLibroPorISBN(isbn);
+                workbook.Save();
+            }
 
-            if (libro == null)
-                throw new ArgumentException("Libro no encontrado");
-
-            libro.EstaDisponible = true;
-            libro.UsuarioIDPresta = 0;
-
-            return "Libro devuelto exitosamente";
+            return libro;
         }
     }
 }

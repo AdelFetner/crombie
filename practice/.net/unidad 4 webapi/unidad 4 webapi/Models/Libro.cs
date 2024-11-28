@@ -2,44 +2,31 @@
 {
     public class Libro
     {
-        private string _autor;
-        public string Autor
+        public string IdLibro { get; set; }  // El ID del libro
+        public string Titulo { get; set; }   // El título del libro
+        public string Autor { get; set; }    // El autor del libro
+        public string Disponibilidad { get; set; }  // Disponibilidad del libro (por ejemplo, "Disponible" o "Prestado")
+        public int Cantidad { get; set; }    // Cantidad de libros disponibles
+
+        // Constructor con parámetros para inicializar un libro
+        public Libro(string idLibro, string titulo, string autor, string disponibilidad, int cantidad)
         {
-            get
-            {
-                return _autor;
-            }
-            set
-            {
-                if (value.Length < 5)
-                {
-                    Console.WriteLine($"Nombre Invalido");
-                };
-                _autor = value;
-            }
+            IdLibro = idLibro;
+            Titulo = titulo;
+            Autor = autor;
+            Disponibilidad = disponibilidad;
+            Cantidad = cantidad;
         }
 
-        public string Titulo { get; set; }
-        public string ISBN { get; set; }
-        public bool EstaDisponible { get; set; }
-        public int UsuarioIDPresta { get; set; }
-
-        public Libro(string Autor, string Titulo, string ISBN, bool EstaDisponible)
-        {
-            _autor = Autor;
-            this.Autor = Autor;
-            this.Titulo = Titulo;
-            this.ISBN = ISBN;
-            this.EstaDisponible = EstaDisponible;
-        }
-
+        // Constructor por defecto
         public Libro()
         {
-            _autor = Autor;
+            IdLibro = "Desconocido";
+            Titulo = "Título por defecto";
             Autor = "Autor por defecto";
-            Titulo = "Titulo por defecto";
-            ISBN = "ISBN por defecto";
-            EstaDisponible = false;
+            Disponibilidad = "Disponible";
+            Cantidad = 0;
         }
+
     }
 }
