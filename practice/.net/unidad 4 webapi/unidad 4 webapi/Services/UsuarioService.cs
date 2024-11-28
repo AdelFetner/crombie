@@ -16,22 +16,19 @@ namespace unidad_4_webapi.Servicios
     public class UsuarioService
     {
         List<Usuario> usuariosList;
-        List<Usuario> allUsers;
-
-
         // Especifica la ruta relativa del archivo Excel
         string filePath = "BibliotecaBaseDatos.xlsx";
+        List<Usuario> dataList;
 
         public UsuarioService()
         {
             usuariosList = new UsuarioData().usuariosList;
-            allUsers = new UsuarioData().GetAllUsers();
+            var dataList = new List<Usuario>();
         }
         public List<Usuario> ObtenerUsuarios()
         {
             using (var workbook = new XLWorkbook(filePath))
             {
-                var dataList = new List<Usuario>();
 
                 // Selecciona la primera hoja del archivo.
                 var worksheet = workbook.Worksheet(1);
