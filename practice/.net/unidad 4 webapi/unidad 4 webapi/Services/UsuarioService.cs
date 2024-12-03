@@ -65,39 +65,29 @@ namespace unidad_4_webapi.Services
         }
 
 
-        public Usuario ActualizarUsuario(Usuario datosActualizados)
+        public Usuario UpdateUser(Usuario datosActualizados)
         {
-            using (var workbook = new XLWorkbook(filePath))
+            using (var connection = new SqlConnection(connectionString))
             {
-                var worksheet = workbook.Worksheet(1);
-                int lastRowUsed = worksheet.LastRowUsed().RowNumber();
-                bool encontrado = false;
+                string sql = @"
+                UPDATE Usuarios 
+                SET Nombre = @Nombre, TipoUsuario = @TipoUsuario, LibrosPrestados = @LibrosPrestados
+                WHERE IdUsuario = @IdUsuario";
 
-                // Buscar la fila donde el ID coincide y actualizar los datos
-                for (int row = 3; row <= lastRowUsed; row++)
+                int rowsAffected = connection.Execute(sql, datosActualizados);
+
+                if (rowsAffected > 0)
                 {
-                    string idActual = worksheet.Cell(row, 1).GetValue<string>();
-
-                    if (idActual == datosActualizados.IDUsuario)
-                    {
-                        worksheet.Cell(row, 2).Value = datosActualizados.Nombre;
-                        worksheet.Cell(row, 3).Value = datosActualizados.TipoUsuario;
-                        worksheet.Cell(row, 4).Value = datosActualizados.LibrosPrestados;
-                        encontrado = true;
-                        break;
-                    }
-                }
-
-                if (encontrado)
-                {
-                    workbook.Save();
                     return datosActualizados;
                 }
-                throw new InvalidOperationException("No se encontró un registro con el ID especificado.");
+                else
+                {
+                    throw new InvalidOperationException("No se encontró un registro con el ID especificado.");
+                }
             }
         }
 
-        public Usuario EliminarUsuario(string id)
+        public Usuario DeleteUser(string id)
         {
             var usuario = SearchUserByID(id);
             if (usuario == null)

@@ -18,34 +18,34 @@ namespace unidad_4_webapi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Usuario>> GetUsuarios()
+        public ActionResult<IEnumerable<Usuario>> GetUsers()
         {
             return Ok(_usuarioService.GetUsers());
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Usuario> GetUsuario(string id)
+        public ActionResult<Usuario> SearchUserByID(string id)
         {
             var usuario = _usuarioService.SearchUserByID(id);
             return usuario != null ? Ok(usuario) : NotFound();
         }
 
         [HttpPost]
-        public ActionResult<string> CrearUsuario([FromBody] Usuario nuevoUsuario)
+        public ActionResult<string> CreateUser([FromBody] Usuario nuevoUsuario)
         {
             return Ok(_usuarioService.CreateUser(nuevoUsuario));
         }
 
         [HttpPut("{id}")]
-        public ActionResult<string> ActualizarUsuario([FromBody] Usuario usuario)
+        public ActionResult<string> UpdateUser([FromBody] Usuario usuario)
         {
-            return Ok(_usuarioService.ActualizarUsuario(usuario));
+            return Ok(_usuarioService.UpdateUser(usuario));
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<string> EliminarUsuario(string id)
+        public ActionResult<string> DeleteUser(string id)
         {
-            return Ok(_usuarioService.EliminarUsuario(id));
+            return Ok(_usuarioService.DeleteUser(id));
         }
     }
 }
