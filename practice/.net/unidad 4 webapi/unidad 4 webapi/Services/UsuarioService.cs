@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using unidad_4_webapi.Services;
 using unidad_4_webapi.Models;
-using unidad_4_webapi.Data;
 using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Drawing;
 using Microsoft.Data.SqlClient;
@@ -56,7 +55,7 @@ namespace unidad_4_webapi.Services
             }
         }
 
-        public Usuario BuscarUsuarioPorId(string id)
+        public Usuario SearchUserByID(string id)
         {
             using (var connection = new SqlConnection(connectionString))
             {
@@ -100,7 +99,7 @@ namespace unidad_4_webapi.Services
 
         public Usuario EliminarUsuario(string id)
         {
-            var usuario = BuscarUsuarioPorId(id);
+            var usuario = SearchUserByID(id);
             if (usuario == null)
                 throw new ArgumentException("Usuario no encontrado");
 

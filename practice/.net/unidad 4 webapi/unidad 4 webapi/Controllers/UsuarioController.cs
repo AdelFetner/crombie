@@ -26,7 +26,7 @@ namespace unidad_4_webapi.Controllers
         [HttpGet("{id}")]
         public ActionResult<Usuario> GetUsuario(string id)
         {
-            var usuario = _usuarioService.BuscarUsuarioPorId(id);
+            var usuario = _usuarioService.SearchUserByID(id);
             return usuario != null ? Ok(usuario) : NotFound();
         }
 
