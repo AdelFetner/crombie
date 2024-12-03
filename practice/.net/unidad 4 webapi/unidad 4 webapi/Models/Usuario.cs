@@ -21,6 +21,10 @@ namespace unidad_4_webapi.Models
         }
 
         public Usuario() {
+            this.IDUsuario = "Desconocido";
+            this.Nombre = "Nombre por defecto";
+            this.TipoUsuario = "Tipo por defecto";
+            this.LibrosPrestados = "Libros prestados por defecto";
         }
     }
 }

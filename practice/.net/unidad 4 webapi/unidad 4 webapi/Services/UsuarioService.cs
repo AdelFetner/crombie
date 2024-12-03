@@ -21,71 +21,48 @@ namespace unidad_4_webapi.Services
         private List<Usuario> _usuarios;
         // Especifica la ruta relativa del archivo Excel
         readonly string filePath = "BibliotecaBaseDatos.xlsx";
+        string connectionString = "Server=localhost;    Database=biblioteca;   Integrated Security=true; TrustServerCertificate=True;";
 
         public UsuarioService()
         {
-            _usuarios = ObtenerUsuarios();
+            _usuarios = GetUsers();
         }
-        public List<Usuario> ObtenerUsuarios()
+        public List<Usuario> GetUsers()
         {
-            var dataList = new List<Usuario>();
 
-            using (var workbook = new XLWorkbook(filePath))
+            var connection = new SqlConnection(connectionString);
+
+            //para traermelos en orden ascendente, al ser varchar se ordenan lógicamente en orden alfabético, haciendo que se haga (1, 10 ,11, 2, 3, 30, etc)
+            var sql = "SELECT * FROM Usuarios ORDER BY CAST(IdUsuario AS INT) ASC;";
+
+            var idUsuarios = connection.Query<Usuario>(sql).ToList();
+
+            return idUsuarios;
+        }
+
+        public Usuario CreateUser(Usuario usuario)
+        {
+            using (var connection = new SqlConnection(connectionString))
             {
+                //inserta y después selecciona para verificar que existe correctamente en la tabla
+                string sql = @"
+                INSERT INTO Usuarios 
+                (IdUsuario, Nombre, TipoUsuario, LibrosPrestados) 
+                VALUES 
+                (@IdUsuario, @Nombre, @TipoUsuario, @LibrosPrestados);
+                SELECT * FROM Usuarios WHERE IdUsuario = @IdUsuario";
 
-                // Selecciona la primera hoja del archivo.
-                var worksheet = workbook.Worksheet(1);
-
-                // Encuentra la última fila utilizada en la hoja.
-                int lastRowUsed = worksheet.LastRowUsed().RowNumber();
-
-                // Recorre cada fila de datos, comenzando desde la segunda fila (omitiendo los encabezados).
-                for (int row = 3; row <= lastRowUsed; row++)
-                {
-                    // Crea una instancia de Excel y asigna valores a sus propiedades desde las celdas de la fila actual.
-                    var dataItem = new Usuario
-                    {
-                        IDUsuario = worksheet.Cell(row, 1).GetValue<string>(),
-                        Nombre = worksheet.Cell(row, 2).GetValue<string>(),
-                        TipoUsuario = worksheet.Cell(row, 3).GetValue<string>(),
-                        LibrosPrestados = worksheet.Cell(row, 4).GetValue<string>()
-                    };
-                    dataList.Add(dataItem);
-                }
-                return dataList;
+                return connection.QuerySingle<Usuario>(sql, usuario);
             }
         }
 
-        public List<Usuario> InsertarUsuarios(List<Usuario> NuevosUsuarios)
+        public Usuario BuscarUsuarioPorId(string id)
         {
-            using (var workbook = new XLWorkbook(filePath))
+            using (var connection = new SqlConnection(connectionString))
             {
-                var worksheet = workbook.Worksheet(1);
-                int lastRowUsed = worksheet.LastRowUsed().RowNumber();
-
-                foreach (var usuario in NuevosUsuarios)
-                {
-                    if (_usuarios.Any(u => u.IDUsuario == usuario.IDUsuario)){
-                        throw new InvalidOperationException("El usuario con el ID especificado ya existe.");
-                    }
-
-                    lastRowUsed++; // Mueve a la siguiente fila disponible
-
-                    // Inserta los valores en las columnas correspondientes de la nueva fila
-                    worksheet.Cell(lastRowUsed, 1).Value = Int32.Parse(usuario.IDUsuario);
-                    worksheet.Cell(lastRowUsed, 2).Value = usuario.Nombre;
-                    worksheet.Cell(lastRowUsed, 3).Value = usuario.TipoUsuario;
-                    worksheet.Cell(lastRowUsed, 4).Value = usuario.LibrosPrestados;
-                }
-
-                workbook.Save();
+                string sql = "SELECT * FROM Usuarios WHERE IdUsuario = @id";
+                return connection.QueryFirstOrDefault<Usuario>(sql, new { id });
             }
-            return NuevosUsuarios;
-        }
-
-        public Usuario? BuscarUsuarioPorId(string id)
-        {
-            return _usuarios.FirstOrDefault(u => u.IDUsuario == id);
         }
 
 
@@ -150,19 +127,6 @@ namespace unidad_4_webapi.Services
             }
 
             return usuario;
-        }
-
-        public List<Usuario> GetIDsFromUsers()
-        {
-            var connectionString = "Server=localhost;    Database=biblioteca;   Integrated Security=true; TrustServerCertificate=True;";
-
-            var connection = new SqlConnection(connectionString);
-
-            var sql = "SELECT * FROM Usuarios";
-
-            var idUsuarios = connection.Query<Usuario>(sql).ToList();
-
-           return idUsuarios;
         }
     }
 }

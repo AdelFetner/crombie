@@ -20,7 +20,7 @@ namespace unidad_4_webapi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Usuario>> GetUsuarios()
         {
-            return Ok(_usuarioService.GetIDsFromUsers());
+            return Ok(_usuarioService.GetUsers());
         }
 
         [HttpGet("{id}")]
@@ -31,9 +31,9 @@ namespace unidad_4_webapi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<string> CrearUsuario([FromBody] List<Usuario> NuevosUsuarios)
+        public ActionResult<string> CrearUsuario([FromBody] Usuario nuevoUsuario)
         {
-            return Ok(_usuarioService.InsertarUsuarios(NuevosUsuarios));
+            return Ok(_usuarioService.CreateUser(nuevoUsuario));
         }
 
         [HttpPut("{id}")]
