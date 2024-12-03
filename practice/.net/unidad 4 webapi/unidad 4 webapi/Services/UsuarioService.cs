@@ -92,30 +92,19 @@ namespace unidad_4_webapi.Services
             var usuario = SearchUserByID(id);
             if (usuario == null)
                 throw new ArgumentException("Usuario no encontrado");
-
             if (usuario.LibrosPrestados.Any())
                 throw new InvalidOperationException("No se puede eliminar un usuario con libros prestados antes de devolverlos");
 
-            using (var workbook = new XLWorkbook(filePath))
+            using (var connection = new SqlConnection(connectionString))
             {
-                var worksheet = workbook.Worksheet(1);
-                int lastRowUsed = worksheet.LastRowUsed().RowNumber();
+                string sql = "DELETE FROM Usuarios WHERE IdUsuario = @id";
+                int rowsAffected = connection.Execute(sql, new { id });
 
-                // Buscar y eliminar la fila correspondiente al ID
-                for (int row = 2; row <= lastRowUsed; row++)
-                {
-                    string idActual = worksheet.Cell(row, 1).GetValue<string>();
-                    if (idActual == id)
-                    {
-                        worksheet.Row(row).Delete();
-                        break;
-                    }
-                }
-
-                workbook.Save();
+                if (rowsAffected > 0)
+                    return usuario;
+                else
+                    throw new InvalidOperationException("No se pudo eliminar el usuario.");
             }
-
-            return usuario;
         }
     }
 }
