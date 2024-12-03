@@ -82,7 +82,7 @@ namespace unidad_4_webapi.Services
                 }
                 else
                 {
-                    throw new InvalidOperationException("No se encontró un registro con el ID especificado.");
+                    throw new ArgumentException("No se encontró un registro con el ID especificado.");
                 }
             }
         }
@@ -93,7 +93,7 @@ namespace unidad_4_webapi.Services
             if (usuario == null)
                 throw new ArgumentException("Usuario no encontrado");
             if (usuario.LibrosPrestados.Any())
-                throw new InvalidOperationException("No se puede eliminar un usuario con libros prestados antes de devolverlos");
+                throw new ArgumentException("No se puede eliminar un usuario con libros prestados antes de devolverlos");
 
             using (var connection = new SqlConnection(connectionString))
             {
@@ -103,7 +103,7 @@ namespace unidad_4_webapi.Services
                 if (rowsAffected > 0)
                     return usuario;
                 else
-                    throw new InvalidOperationException("No se pudo eliminar el usuario.");
+                    throw new ArgumentException("No se pudo eliminar el usuario.");
             }
         }
     }

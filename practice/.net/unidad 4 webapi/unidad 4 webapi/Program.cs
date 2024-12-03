@@ -1,3 +1,4 @@
+using unidad_4_webapi.Logging.DbLoggerObjects;
 using unidad_4_webapi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,14 @@ builder.Services.AddSwaggerGen();
 builder.Services
     .AddScoped<LibroService>()
     .AddScoped<UsuarioService>();
+builder.Logging.AddDbLogger(options =>
+{
+    builder.Configuration
+        .GetSection("Logging")
+        .GetSection("Database")
+        .GetSection("Options")
+        .Bind(options);
+});
 
 var app = builder.Build();
 
