@@ -18,8 +18,6 @@ namespace unidad_4_webapi.Services
     {
 
         private List<Usuario> _usuarios;
-        // Especifica la ruta relativa del archivo Excel
-        readonly string filePath = "BibliotecaBaseDatos.xlsx";
         string connectionString = "Server=localhost;    Database=biblioteca;   Integrated Security=true; TrustServerCertificate=True;";
 
         public UsuarioService()

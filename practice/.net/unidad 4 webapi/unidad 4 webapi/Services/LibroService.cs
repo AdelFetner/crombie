@@ -1,5 +1,7 @@
 ﻿using ClosedXML.Excel;
+using Dapper;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.Data.SqlClient;
 using unidad_4_webapi.Models;
 
 namespace unidad_4_webapi.Services
@@ -7,37 +9,23 @@ namespace unidad_4_webapi.Services
     public class LibroService
     {
         readonly string filePath = "BibliotecaBaseDatos.xlsx";
+        string connectionString = "Server=localhost;    Database=biblioteca;   Integrated Security=true; TrustServerCertificate=True;";
 
         private List<Libro> _libros = new List<Libro>();
         public LibroService()
         {
-            _libros = ObtenerLibros();
+            _libros = GetBooks();
         }
 
-        public List<Libro> ObtenerLibros()
+        public List<Libro> GetBooks()
         {
-            var libros = new List<Libro>();
+            var connection = new SqlConnection(connectionString);
 
-            using (var workbook = new XLWorkbook(filePath))
-            {
-                // Accede a la tercera hoja (los libros).
-                var worksheet = workbook.Worksheet(3);
-                int lastRowUsed = worksheet.LastRowUsed().RowNumber();
+            //para traermelos en orden ascendente, al ser varchar se ordenan lógicamente en orden alfabético, haciendo que se haga (1, 10 ,11, 2, 3, 30, etc)
+            var sql = "SELECT * FROM Libros ORDER BY CAST(IdLibro AS INT) ASC;";
 
-                // Recorre todas las filas con datos.
-                for (int row = 3; row <= lastRowUsed; row++)
-                {
-                    var libro = new Libro
-                    {
-                        IdLibro = worksheet.Cell(row, 1).GetValue<string>(),
-                        Titulo = worksheet.Cell(row, 2).GetValue<string>(),
-                        Autor = worksheet.Cell(row, 3).GetValue<string>(),
-                        Disponibilidad = worksheet.Cell(row, 4).GetValue<string>(),
-                        Cantidad = worksheet.Cell(row, 5).GetValue<int>()
-                    };
-                    libros.Add(libro);
-                }
-            }
+            var libros = connection.Query<Libro>(sql).ToList();
+
             return libros;
         }
         public Libro InsertarLibro(Libro nuevoLibro)

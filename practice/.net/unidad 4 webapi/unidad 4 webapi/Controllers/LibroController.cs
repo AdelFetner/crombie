@@ -17,6 +17,12 @@ namespace unidad_4_webapi.Controllers
             _libroService = libroService;
         }
 
+        [HttpGet("libro/")]
+        public ActionResult<List<Usuario>> GetBooks()
+        {
+            return Ok(_libroService.GetBooks());
+        }
+
         [HttpPost("libro")]
         public ActionResult<string> CrearLibro(Libro libro)
         {
