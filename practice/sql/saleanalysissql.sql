@@ -82,26 +82,33 @@ VALUES
 (3, 6, 1, 150),   -- Microwave
 (4, 4, 2, 100);   -- Jeans x2
 
-
-SELECT * FROM CATEGORIES;
-SELECT * FROM CUSTOMERS;
-SELECT * FROM ORDER_DETAILS;
-SELECT * FROM ORDERS;
-SELECT * FROM PRODUCTS;
 -- Actividad 1: Análisis de Ventas
 	-- Usar funciones de agregación para obtener información como:
 	-- Número de productos vendidos por categoría.
-SELECT c.category_name,SUM(od.quantity) AS total_products_sold
+SELECT c.category_name, SUM(od.quantity) AS total_products_sold
 FROM categories c
 JOIN products p ON c.category_id = p.category_id
 JOIN order_details od ON p.product_id = od.product_id
 GROUP BY c.category_name;
 
 	-- Total de ingresos generados por cliente.
-SELECT o.total_price, o.order_id
-FROM ORDER_DETAILS O;
+SELECT c.customer_id, c.customer_name, SUM(od.total_price) AS total_customer_sales
+FROM ORDER_DETAILS od
+JOIN ORDERS o ON od.order_id = o.order_id
+JOIN CUSTOMERS c ON o.customer_id = c.customer_id
+GROUP BY c.customer_id, c.customer_name;
+
 -- Actividad 2: Relacionar Tablas
 	-- Usar un JOIN para combinar datos de las tablas orders y products.
+SELECT o.order_id, p.product_name, od.quantity, od.total_price, o.order_date
+FROM orders o
+JOIN order_details od ON o.order_id = od.order_id
+JOIN products p ON od.product_id = p.product_id;
+
 	-- Encontrar qué producto generó más ingresos:
-
-
+SELECT p.product_name as most_sold, SUM(od.total_price) AS total_revenue, SUM(od.quantity) AS total_quantity_sold
+FROM order_details od
+JOIN products p ON od.product_id = p.product_id
+GROUP BY p.product_name
+ORDER BY total_revenue DESC
+LIMIT 1;
