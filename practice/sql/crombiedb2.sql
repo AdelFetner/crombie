@@ -43,6 +43,7 @@ INNER JOIN orders o ON c.CustomerID = o.CustomerID
 GROUP BY c.CustomerID, c.CustomerName, c.City	
 HAVING SUM(o.TotalPrice) > 1500;
 
+
 -- Actividad 1: Análisis de Ventas
         -- Usar funciones de agregación para obtener información como:
         -- Número de productos vendidos por categoría.
@@ -52,3 +53,4 @@ HAVING SUM(o.TotalPrice) > 1500;
         -- Usar un JOIN para combinar datos de las tablas orders y products.
         -- Encontrar qué producto generó más ingresos:
         
+
