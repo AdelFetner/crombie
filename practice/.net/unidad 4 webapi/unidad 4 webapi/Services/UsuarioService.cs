@@ -16,14 +16,7 @@ namespace unidad_4_webapi.Services
 {
     public class UsuarioService
     {
-
-        private List<Usuario> _usuarios;
         string connectionString = "Server=localhost;    Database=biblioteca;   Integrated Security=true; TrustServerCertificate=True;";
-
-        public UsuarioService()
-        {
-            _usuarios = GetUsers();
-        }
         public List<Usuario> GetUsers()
         {
 
@@ -58,7 +51,11 @@ namespace unidad_4_webapi.Services
             using (var connection = new SqlConnection(connectionString))
             {
                 string sql = "SELECT * FROM Usuarios WHERE IdUsuario = @id";
-                return connection.QueryFirstOrDefault<Usuario>(sql, new { id });
+                Usuario response = connection.QueryFirstOrDefault<Usuario>(sql, new { id });
+
+                if (response == null)
+                    throw new ArgumentException("No se encontró un usuario con el ID especificado.");
+                return response;
             }
         }
 
