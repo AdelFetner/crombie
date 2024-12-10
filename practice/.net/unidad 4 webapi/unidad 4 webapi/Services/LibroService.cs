@@ -72,22 +72,15 @@ namespace unidad_4_webapi.Services
             }
         }
 
-        public Libro DeleteBook(string idLibro)
+        public string DeleteBook(string idLibro)
         {
-            // Primero buscar el libro para asegurar que existe y poder devolverlo
-            var libro = SearchByID(idLibro);
-
-            // Validación adicional: no permitir eliminar libros con ejemplares disponibles
-            if (libro.Cantidad > 0)
-                throw new ArgumentException("No se puede eliminar un libro con ejemplares disponibles");
-
             using (var connection = new SqlConnection(connectionString))
             {
                 string sql = "DELETE FROM Libros WHERE IdLibro = @id";
                 int rowsAffected = connection.Execute(sql, new { id = idLibro });
 
                 if (rowsAffected > 0)
-                    return libro;
+                    return $"el id {idLibro} fue eliminado correctamente";
                 else
                     throw new ArgumentException("No se pudo eliminar el libro.");
             }

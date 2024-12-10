@@ -11,23 +11,40 @@ using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Drawing;
 using Microsoft.Data.SqlClient;
 using Dapper;
+using unidad_4_webapi.Data;
+using System.Data;
 
 namespace unidad_4_webapi.Services
 {
     public class UsuarioService
     {
         string connectionString = "Server=localhost;    Database=biblioteca;   Integrated Security=true; TrustServerCertificate=True;";
-        public List<Usuario> GetUsers()
+        private readonly DapperContext _context;
+        private readonly IDbConnection _connectionString;
+
+
+        public UsuarioService(DapperContext context)
+        {
+            this._context = context;
+            _connectionString = context.CreateConnection();
+        }
+
+        //public List<Usuario> GetUsers()
+        //{
+
+        //    var connection = new SqlConnection(_connectionString);
+
+        //    //para traermelos en orden ascendente, al ser varchar se ordenan lógicamente en orden alfabético, haciendo que se haga (1, 10 ,11, 2, 3, 30, etc)
+        //    var sql = "SELECT * FROM Usuarios ORDER BY CAST(IdUsuario AS INT) ASC;";
+
+        //    var idUsuarios = connection.Query<Usuario>(sql).ToList();
+
+        //    return idUsuarios;
+        //}
+        public List<object> GetUsers()
         {
 
-            var connection = new SqlConnection(connectionString);
-
-            //para traermelos en orden ascendente, al ser varchar se ordenan lógicamente en orden alfabético, haciendo que se haga (1, 10 ,11, 2, 3, 30, etc)
-            var sql = "SELECT * FROM Usuarios ORDER BY CAST(IdUsuario AS INT) ASC;";
-
-            var idUsuarios = connection.Query<Usuario>(sql).ToList();
-
-            return idUsuarios;
+            return _context.GetEntities("SELECT * FROM Usuarios ORDER BY CAST(IdUsuario AS INT) ASC;");
         }
 
         public Usuario CreateUser(Usuario usuario)

@@ -1,3 +1,4 @@
+using unidad_4_webapi.Data;
 using unidad_4_webapi.Logging.DbLoggerObjects;
 using unidad_4_webapi.Services;
 
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<DapperContext>();
 builder.Services
     .AddScoped<LibroService>()
     .AddScoped<UsuarioService>();
