@@ -51,10 +51,8 @@ namespace unidad_4_webapi.Services
             using (var connection = new SqlConnection(connectionString))
             {
                 string sql = "SELECT * FROM Usuarios WHERE IdUsuario = @id";
-                Usuario response = connection.QueryFirstOrDefault<Usuario>(sql, new { id });
+                Usuario response = connection.QueryFirstOrDefault<Usuario>(sql, new { id }) ?? throw new ArgumentException("No se encontró un usuario con el ID especificado.");
 
-                if (response == null)
-                    throw new ArgumentException("No se encontró un usuario con el ID especificado.");
                 return response;
             }
         }

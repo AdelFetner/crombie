@@ -8,14 +8,7 @@ namespace unidad_4_webapi.Services
 {
     public class LibroService
     {
-        readonly string filePath = "BibliotecaBaseDatos.xlsx";
         string connectionString = "Server=localhost;    Database=biblioteca;   Integrated Security=true; TrustServerCertificate=True;";
-
-        private List<Libro> _libros = new List<Libro>();
-        public LibroService()
-        {
-            _libros = GetBooks();
-        }
 
         public List<Libro> GetBooks()
         {
@@ -28,94 +21,76 @@ namespace unidad_4_webapi.Services
 
             return libros;
         }
-        public Libro InsertarLibro(Libro nuevoLibro)
+        public Libro SearchByID(string id)
         {
-            using (var workbook = new XLWorkbook(filePath))
+            using (var connection = new SqlConnection(connectionString))
             {
-                var worksheet = workbook.Worksheet(3);  // Asegúrate de que es la hoja correcta
-                int lastRowUsed = worksheet.LastRowUsed().RowNumber();
-
-                lastRowUsed++;  // Avanza a la siguiente fila disponible
-
-                // Inserta los valores del nuevo libro
-                worksheet.Cell(lastRowUsed, 1).Value = Int32.Parse(nuevoLibro.IdLibro);
-                worksheet.Cell(lastRowUsed, 2).Value = nuevoLibro.Titulo;
-                worksheet.Cell(lastRowUsed, 3).Value = nuevoLibro.Autor;
-                worksheet.Cell(lastRowUsed, 4).Value = nuevoLibro.Disponibilidad;
-                worksheet.Cell(lastRowUsed, 5).Value = nuevoLibro.Cantidad;
-
-                workbook.Save();
+                string sql = "SELECT * FROM Libros WHERE IdLibro = @id";
+                Libro response = connection.QueryFirstOrDefault<Libro>(sql, new { id })
+                    ?? throw new ArgumentException("No se encontró un libro con el ID especificado.");
+                return response;
             }
-
-            return nuevoLibro;
         }
 
-        public Libro? BuscarLibroPorId(string id)
+        public Libro AddBook(Libro nuevoLibro)
         {
-            return _libros.FirstOrDefault(u => u.IdLibro == id);
-        }
-
-        public Libro ActualizarLibro(Libro libroActualizado)
-        {
-            using (var workbook = new XLWorkbook(filePath))
+            using (var connection = new SqlConnection(connectionString))
             {
-                var worksheet = workbook.Worksheet(3);  // Asegúrate de que es la hoja correcta
-                int lastRowUsed = worksheet.LastRowUsed().RowNumber();
-                bool encontrado = false;
+                //inserta y después selecciona para verificar que existe correctamente en la tabla
+                string sql = @"
+                INSERT INTO Libros 
+                (IdLibro, Titulo, Autor, Disponibilidad, Cantidad) 
+                VALUES 
+                (@IdLibro, @Titulo, @Autor, @Disponibilidad, @Cantidad);
+                SELECT * FROM Libros WHERE IdLibro = @IdLibro";
+                return connection.QuerySingle<Libro>(sql, nuevoLibro);
+            }
+        }
 
-                // Buscar la fila donde el IdLibro coincide y actualizar los datos
-                for (int row = 3; row <= lastRowUsed; row++)
+
+
+        public Libro UpdateBook(Libro libroActualizado)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                string sql = @"
+                UPDATE Libros 
+                SET Titulo = @Titulo, Autor = @Autor, 
+                    Disponibilidad = @Disponibilidad, Cantidad = @Cantidad
+                WHERE IdLibro = @IdLibro";
+
+                int rowsAffected = connection.Execute(sql, libroActualizado);
+
+                if (rowsAffected > 0)
                 {
-                    string idActual = worksheet.Cell(row, 1).GetValue<string>(); // Columna A (IdLibro)
-
-                    if (idActual == libroActualizado.IdLibro)
-                    {
-                        worksheet.Cell(row, 2).Value = libroActualizado.Titulo;
-                        worksheet.Cell(row, 3).Value = libroActualizado.Autor;
-                        worksheet.Cell(row, 4).Value = libroActualizado.Disponibilidad;
-                        worksheet.Cell(row, 5).Value = libroActualizado.Cantidad;
-                        encontrado = true;
-                        break;
-                    }
-                }
-
-                if (encontrado)
-                {
-                    workbook.Save();
                     return libroActualizado;
                 }
-                throw new InvalidOperationException("No se encontró un registro con el ID especificado.");
+                else
+                {
+                    throw new ArgumentException("No se encontró un registro con el ID especificado.");
+                }
             }
         }
 
-        public Libro EliminarLibro(string idLibro)
+        public Libro DeleteBook(string idLibro)
         {
-            var libro = BuscarLibroPorId(idLibro);
-            if (libro == null)
-                throw new ArgumentException("Libro no encontrado");
+            // Primero buscar el libro para asegurar que existe y poder devolverlo
+            var libro = SearchByID(idLibro);
 
-            // Agrega validaciones adicionales si es necesario, como si el libro está prestado.
+            // Validación adicional: no permitir eliminar libros con ejemplares disponibles
+            if (libro.Cantidad > 0)
+                throw new ArgumentException("No se puede eliminar un libro con ejemplares disponibles");
 
-            using (var workbook = new XLWorkbook(filePath))
+            using (var connection = new SqlConnection(connectionString))
             {
-                var worksheet = workbook.Worksheet(3); // Asegúrate de la hoja correcta
-                int lastRowUsed = worksheet.LastRowUsed().RowNumber();
+                string sql = "DELETE FROM Libros WHERE IdLibro = @id";
+                int rowsAffected = connection.Execute(sql, new { id = idLibro });
 
-                // Buscar y eliminar la fila correspondiente al ID
-                for (int row = 3; row <= lastRowUsed; row++)
-                {
-                    string idActual = worksheet.Cell(row, 1).GetValue<string>();
-                    if (idActual == idLibro)
-                    {
-                        worksheet.Row(row).Delete();
-                        break;
-                    }
-                }
-
-                workbook.Save();
+                if (rowsAffected > 0)
+                    return libro;
+                else
+                    throw new ArgumentException("No se pudo eliminar el libro.");
             }
-
-            return libro;
         }
     }
 }
