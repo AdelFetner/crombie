@@ -57,7 +57,6 @@ namespace unidad_4_webapi.Services
             }
         }
 
-
         public Usuario UpdateUser(Usuario datosActualizados)
         {
             using (var connection = new SqlConnection(connectionString))
