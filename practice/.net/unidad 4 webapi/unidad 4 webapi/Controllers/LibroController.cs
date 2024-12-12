@@ -24,16 +24,16 @@ namespace unidad_4_webapi.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Libro> BuscarLibro(string id)
+        public ActionResult<Libro> SearchBook(string id)
         {
             var libro = _libroService.SearchByID(id);
             return libro != null ? Ok(libro) : NotFound();
         }
 
         [HttpPost]
-        public ActionResult<string> CrearLibro(Libro libro)
+        public ActionResult<string> CreateBook(Libro libro)
         {
-            return Ok(_libroService.AddBook(libro));
+            return Ok(_libroService.CreateBook(libro));
         }
 
         [HttpPut("{id}")]

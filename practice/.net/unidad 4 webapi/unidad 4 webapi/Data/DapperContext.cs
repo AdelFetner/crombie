@@ -19,42 +19,42 @@ namespace unidad_4_webapi.Data
 
         public IDbConnection CreateConnection() => new SqlConnection(_connectionString);
 
-        public List<Object> GetEntities(string query)
+        public List<object> GetEntities(string query)
         {
             using var connection = CreateConnection();
             {
                 var sql = query;
 
-                var response = connection.Query<Object>(sql).ToList();
+                var response = connection.Query<object>(sql).ToList();
 
                 return response;
             }
         }
 
-        public Object SearchEntityByID(string query, string id)
+        public object SearchEntityByID(string query, string id)
         {
             using var connection = CreateConnection();
             {
                 string sql = query;
 
-                Object response = connection.QueryFirstOrDefault<Object>(sql, new { id })
+                object response = connection.QueryFirstOrDefault<object>(sql, new { id })
                     ?? throw new ArgumentException("No se encontró información para el ID especificado.");
                 
                 return response;
             }
         }
 
-        public Object AddEntity(string query, object entity)
+        public object CreateEntity(string query, object entity)
         {
             using (var connection = CreateConnection())
             {
                 string sql = query;
 
-                return connection.QuerySingle<Object>(sql, entity);
+                return connection.QuerySingle<object>(sql, entity);
             }
         }
 
-        public string UpdateEntity(string query, Object updatedEntity)
+        public string UpdateEntity(string query, object updatedEntity)
         {
             using (var connection = CreateConnection())
             {
