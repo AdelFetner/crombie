@@ -49,7 +49,7 @@ namespace unidad_4_webapi.Services
             return _context.SearchEntityByID("SELECT * FROM Usuarios WHERE IdUsuario = @id", id);
         }
 
-        public object UpdateUser(object datosActualizados)
+        public object UpdateUser(Usuario datosActualizados)
         {
             return _context.UpdateEntity(@"
                 UPDATE Usuarios 
