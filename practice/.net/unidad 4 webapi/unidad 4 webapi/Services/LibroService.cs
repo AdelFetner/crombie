@@ -29,7 +29,7 @@ namespace unidad_4_webapi.Services
             return _context.SearchEntityByID("SELECT * FROM Libros WHERE IdLibro = @id", id);
         }
 
-        public object CreateBook(object nuevoLibro)
+        public object CreateBook(Libro nuevoLibro)
         {
             return _context.CreateEntity(@"
                 INSERT INTO Libros 
@@ -41,7 +41,7 @@ namespace unidad_4_webapi.Services
 
 
 
-        public object UpdateBook(object libroActualizado)
+        public object UpdateBook(Libro libroActualizado)
         {
             return _context.UpdateEntity(@"
                 UPDATE Libros 
