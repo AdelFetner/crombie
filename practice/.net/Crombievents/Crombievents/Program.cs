@@ -1,3 +1,9 @@
+using Crombievents.Data;
+using Crombievents.Interfaces;
+using Crombievents.Models;
+using Crombievents.Repository;
+using Crombievents.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +12,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<DapperContext>();
+builder.Services
+    .AddScoped<IRepository<User>, Repository<User>>()
+    .AddScoped<UserService>();
 
 var app = builder.Build();
 
