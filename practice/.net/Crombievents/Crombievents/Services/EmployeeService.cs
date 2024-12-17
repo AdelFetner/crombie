@@ -27,8 +27,8 @@ namespace Crombievents.Services
         public Employee CreateEmployee(Employee newEmployee)
         {
             string query = @"
-                INSERT INTO Employees (EmployeeID, Name, Email, Phone, HireDate) 
-                VALUES (@EmployeeID, @Name, @Email, @Phone, @HireDate);
+                INSERT INTO Employees (EmployeeID, Name, Email, Phone, HireDate, EmployeeTypeID) 
+                VALUES (@EmployeeID, @Name, @Email, @Phone, @HireDate, @EmployeeTypeID);
                 SELECT * FROM Employees where EmployeeId = @EmployeeID";
             return _employeeRepository.CreateEntity(query, newEmployee);
         }
