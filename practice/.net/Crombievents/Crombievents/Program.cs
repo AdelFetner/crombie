@@ -17,9 +17,11 @@ builder.Services
     .AddScoped<IRepository<User>, Repository<User>>()
     .AddScoped<IRepository<Event>, Repository<Event>>()
     .AddScoped<IRepository<Employee>, Repository<Employee>>()
+    .AddScoped<IRepository<EmployeeType>, Repository<EmployeeType>>()
     .AddScoped<UserService>()
     .AddScoped<EventService>()
-    .AddScoped<EmployeeService>();
+    .AddScoped<EmployeeService>()
+    .AddScoped<EmployeeTypeService>();
 
 var app = builder.Build();
 
