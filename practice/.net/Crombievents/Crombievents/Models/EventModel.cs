@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace Crombievents.Models
+﻿namespace Crombievents.Models
 {
     public class Event
     {
@@ -10,8 +8,6 @@ namespace Crombievents.Models
         public TimeSpan Time { get; set; }
         public string Location { get; set; }
         public int MaxCapacity { get; set; }
-
-        // finishing to understand how navigation props work  
         public int OrganizerID { get; set; }
     }
 }

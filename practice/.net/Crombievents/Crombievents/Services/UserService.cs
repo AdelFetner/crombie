@@ -18,7 +18,7 @@ namespace Crombievents.Services
             return _userRepository.GetEntities(query);
         }
 
-        public User GetUserById(string id)
+        public User GetUserByID(string id)
         {
             string query = "SELECT * FROM Users WHERE UserID = @id";
             return _userRepository.SearchEntityByID(query, id);

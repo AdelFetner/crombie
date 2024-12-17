@@ -30,7 +30,7 @@ CREATE TABLE Employees (
     FOREIGN KEY (EmployeeTypeID) REFERENCES EmployeeTypes(EmployeeTypeID) ON DELETE CASCADE
 );
 -- Insert the employee type for organizers
-INSERT INTO EmployeeTypes (TypeName) VALUES ('Organizer');
+INSERT INTO EmployeeTypes (TypeName, EmployeeTypeID) VALUES ('Organizer', 1);
 -- Events Table
 CREATE TABLE Events (
     EventID INT PRIMARY KEY,

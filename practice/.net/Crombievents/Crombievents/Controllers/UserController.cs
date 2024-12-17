@@ -24,7 +24,7 @@ namespace Crombievents.Controllers
         [HttpGet("{id}")]
         public ActionResult<User> GetUserByID(string id)
         {
-            var user = _userService.GetUserById(id);
+            var user = _userService.GetUserByID(id);
             if (user == null)
             {
                 return NotFound();

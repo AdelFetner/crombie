@@ -15,7 +15,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<DapperContext>();
 builder.Services
     .AddScoped<IRepository<User>, Repository<User>>()
-    .AddScoped<UserService>();
+    .AddScoped<IRepository<Event>, Repository<Event>>()
+    .AddScoped<IRepository<Employee>, Repository<Employee>>()
+    .AddScoped<UserService>()
+    .AddScoped<EventService>()
+    .AddScoped<EmployeeService>();
 
 var app = builder.Build();
 
