@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EF_Test.Models
+namespace EF_Test.Models.Entity
 {
     public class Product
     {

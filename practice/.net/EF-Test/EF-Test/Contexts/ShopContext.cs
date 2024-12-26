@@ -1,4 +1,5 @@
-﻿using EF_Test.Models;
+﻿using EF_Test.Models.Entity;
+using EF_Test.Seeds;
 using Microsoft.EntityFrameworkCore;
 
 namespace EF_Test.Contexts
@@ -13,12 +14,18 @@ namespace EF_Test.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            ModelBuilder.Entity<User>(p =>
+            modelBuilder.Entity<User>(user =>
             {
-                p.ToTable("User");
-                p.HasKey(p => p.Id);
-                p.Property(p => p.email);
-                p.
+                user.ToTable("User");
+                user.HasKey(p => p.Id);
+                user.Property(p => p.email);
+            });
+
+            //Seed data
+            modelBuilder.ApplyConfiguration(new ProductSeed());
+            base.OnModelCreating(modelBuilder);
         }
+
+
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace EF_Test.Models
+﻿namespace EF_Test.Models.Entity
 {
     public class User
     {
