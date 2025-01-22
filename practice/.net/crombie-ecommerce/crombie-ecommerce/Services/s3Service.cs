@@ -1,5 +1,6 @@
 ﻿using Amazon.Runtime;
 using Amazon.S3;
+using Amazon.S3.Model;
 
 namespace crombie_ecommerce.Services
 {
@@ -38,6 +39,16 @@ namespace crombie_ecommerce.Services
             }
         }
 
+        public async Task<GetObjectResponse> DownloadObjectFromBucketAsync(string fileName)
+        {
+            var request = new GetObjectRequest
+            {
+                BucketName = _bucketName,
+                Key = fileName
+            };
+            
+            return await _amazonS3.GetObjectAsync(request);
+        }
 
     }
 }

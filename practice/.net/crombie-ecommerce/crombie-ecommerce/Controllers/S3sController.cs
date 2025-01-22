@@ -1,4 +1,5 @@
-﻿using crombie_ecommerce.Services;
+﻿using Amazon.S3.Model;
+using crombie_ecommerce.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace crombie_ecommerce.Controllers
@@ -13,6 +14,35 @@ namespace crombie_ecommerce.Controllers
         {
             _s3Service = s3Service;
         }
+
+        [HttpGet("download")]
+        public async Task<IActionResult> DownloadObject(string fileName)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(fileName))
+                {
+                    return BadRequest("File name is required");
+                }
+
+                using var response = await _s3Service.DownloadObjectFromBucketAsync(fileName);
+                if (response.HttpStatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    return BadRequest("Error downloading file from S3");
+                }
+
+                Response.Headers.Add("Content-Disposition", $"attachment; filename={fileName}");
+                Response.Headers.Add("Content-Type", response.Headers.ContentType);
+
+                await response.ResponseStream.CopyToAsync(Response.Body);
+                return new EmptyResult();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error downloading file: {ex.Message}");
+            }
+        }
+
 
         [HttpPost("upload")]
         public async Task<ActionResult<string>> PutObject(IFormFile fileObject)
