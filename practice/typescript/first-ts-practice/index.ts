@@ -76,6 +76,7 @@ const getId = (id: ID): string => `The ID: ${id} is of type ${typeof id}`;
 
 // Ejercicio 5: Definir Tipos para Funciones
 // Define un tipo de función OperacionBinaria que tome dos parámetros de tipo number y devuelva un number. Luego, crea dos funciones suma y multiplicacion que correspondan a ese tipo de función.
+// Define una función calcular que tome tres argumentos: dos números y una operación de tipo OperacionBinaria. Esta función debe devolver el resultado de aplicar la operación a los números. Prueba la función calcular con suma y multiplicacion.
 // fifth exercise
 
 type binaryOperation = (a: number, b: number) => number;
@@ -84,12 +85,28 @@ const sum: binaryOperation = (a, b) => a + b;
 
 const multiplication: binaryOperation = (a, b) => a * b;
 
-// Define una función calcular que tome tres argumentos: dos números y una operación de tipo OperacionBinaria. Esta función debe devolver el resultado de aplicar la operación a los números. Prueba la función calcular con suma y multiplicacion.
 
 // Ejercicio 6: Interface con Index Signature
 // Crea una interfaz Traducciones que tenga un index signature para representar traducciones en diferentes idiomas. La clave del índice debe ser un string (idioma) y el valor otro string (traducción).
-
 // Crea un objeto traduccionesSaludo que tenga las traducciones de "Hola" en diferentes idiomas (por ejemplo, "en" para inglés, "fr" para francés, etc.). Agrega algunas traducciones y usa este objeto para acceder a una de ellas mediante su clave.
+// sixth exercise
+
+interface Translations {
+    [language: string]: string;
+}
+
+const greetingTranslations: Translations = {
+    es: "Hola",    // Spanish
+    en: "Hello",   // English
+    fr: "Bonjour", // French
+    de: "Hallo",   // German
+    it: "Ciao"     // Italian
+};
+
+for (const lang in greetingTranslations) {
+    console.log(`${lang}: ${greetingTranslations[lang]}`);
+}
+
 
 // Ejercicio 7: Tipos Opcionales y Predeterminados
 // Define una interfaz Producto con las siguientes propiedades:
