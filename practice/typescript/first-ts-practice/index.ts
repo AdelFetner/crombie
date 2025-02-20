@@ -85,7 +85,6 @@ const sum: binaryOperation = (a, b) => a + b;
 
 const multiplication: binaryOperation = (a, b) => a * b;
 
-
 // Ejercicio 6: Interface con Index Signature
 // Crea una interfaz Traducciones que tenga un index signature para representar traducciones en diferentes idiomas. La clave del índice debe ser un string (idioma) y el valor otro string (traducción).
 // Crea un objeto traduccionesSaludo que tenga las traducciones de "Hola" en diferentes idiomas (por ejemplo, "en" para inglés, "fr" para francés, etc.). Agrega algunas traducciones y usa este objeto para acceder a una de ellas mediante su clave.
@@ -96,30 +95,65 @@ interface Translations {
 }
 
 const greetingTranslations: Translations = {
-    es: "Hola",    // Spanish
-    en: "Hello",   // English
+    es: "Hola", // Spanish
+    en: "Hello", // English
     fr: "Bonjour", // French
-    de: "Hallo",   // German
-    it: "Ciao"     // Italian
+    de: "Hallo", // German
+    it: "Ciao", // Italian
 };
-
 for (const lang in greetingTranslations) {
     console.log(`${lang}: ${greetingTranslations[lang]}`);
 }
-
 
 // Ejercicio 7: Tipos Opcionales y Predeterminados
 // Define una interfaz Producto con las siguientes propiedades:
 // nombre (string), precio (number), descuento (number, opcional)
 // Luego, crea una función calcularPrecioFinal que reciba un Producto y devuelva el precio aplicando el descuento si existe.
+// seventh exercise
+interface Product {
+    name: string;
+    price: number;
+    discount?: number;
+}
 
+const calculateFinalPrice = (product: Product): number =>
+    product.discount ? product.price - product.discount : product.price;
 // Ejercicio 8: Tipos Enums
 // Define un enum llamado RolUsuario con los valores "Admin", "Editor", y "Lector". Luego, crea una interfaz Usuario con las propiedades:
 // nombre (string), edad (number), rol (RolUsuario)
 // Crea una función mostrarPermisos que reciba un Usuario y devuelva un mensaje diferente según su rol.
+// eighth exercise
+enum UserRole {
+    Admin = "Admin",
+    Editor = "Editor",
+    Reader = "Reader",
+}
+
+interface User {
+    name: string;
+    age: number;
+    role: UserRole;
+}
+
+const showPermissions = (user: User): string => {
+    switch (user.role) {
+        case UserRole.Admin:
+            return "You have all permissions";
+        case UserRole.Editor:
+            return "You can edit";
+        case UserRole.Reader:
+            return "You can read";
+    }
+};
 
 // Ejercicio 9: Tuplas en TypeScript
 // Define un tipo Coordenadas que sea una tupla [number, number] representando latitud y longitud. Luego, crea una función mostrarUbicacion que reciba unas Coordenadas y devuelva un string formateado.
+// ninth exercise
+
+type Coordinates = [number, number];
+
+const showLocation = ([latitude, longitude]: Coordinates): string =>
+    `Latitude: ${latitude}, Longitude: ${longitude}`;
 
 // Ejercicio 10: Clases y Modificadores de Acceso
 // Crea una clase Coche con las siguientes propiedades:
@@ -129,3 +163,20 @@ for (const lang in greetingTranslations) {
 // año (number, privada)
 // Un método obtenerInfo() que devuelva un string con los datos del coche.
 // Crea una instancia de Coche e intenta acceder a año desde fuera de la clase. ¿Qué sucede?
+
+// tenth exercise
+class Car {
+    constructor(
+        public brand: string,
+        public model: string,
+        private year: number
+    ) {}
+
+    getInfo(): string {
+        return `Car: ${this.brand} ${this.model} ${this.year}`;
+    }
+}
+
+const myCar = new Car("Toyota", "Corolla", 2021);
+
+console.log(myCar.getInfo());
