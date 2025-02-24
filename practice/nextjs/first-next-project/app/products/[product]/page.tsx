@@ -14,6 +14,12 @@ export async function generateMetadata({ params }: Params) {
     const product = await prisma.product.findFirst({
         where: {
             name: productName
+        },
+        select: {
+            name: true,
+            price: true,
+            description: true,
+            image: true
         }
     })
 
@@ -44,6 +50,12 @@ export default async function ProductPage({ params }: Params) {
     const product: Product | null = await prisma.product.findFirst({
         where: {
             name: productName
+        },
+        select: {
+            name: true,
+            price: true,
+            description: true,
+            image: true
         }
     })
 
