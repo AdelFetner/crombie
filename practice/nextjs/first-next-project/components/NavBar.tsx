@@ -23,7 +23,7 @@ export const NavBar = () => {
     const pathName = usePathname();
 
     return (
-        <Navbar>
+        <Navbar position="sticky">
             <NavbarBrand>
                 <Link className="font-bold text-inherit" href="/" prefetch={true}>crombiecito</Link>
             </NavbarBrand>
