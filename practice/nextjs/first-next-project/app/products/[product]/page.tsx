@@ -1,19 +1,21 @@
-import { fakeDB } from '@/lib/fakeDB'
+import { prisma } from '@/lib/db'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 export async function generateStaticParams(): Promise<{ product: string }[]> {
-    return fakeDB.Products.map(product => ({
+    return (await prisma.product.findMany()).map(product => ({
         product: product.name.toLowerCase().replace(/ /g, '-'),
     }))
 }
 
 export async function generateMetadata({ params }: Params) {
     const productName = params.product.replace(/-/g, ' ')
-    const product = fakeDB.Products.find(product =>
-        product.name.toLowerCase() === productName.toLowerCase()
-    )
+    const product = await prisma.product.findFirst({
+        where: {
+            name: productName
+        }
+    })
 
     if (!product) return { title: 'Product Not Found' }
 
@@ -32,26 +34,28 @@ interface Params {
 type Product = {
     name: string
     price: number
-    description: string
-    img: string
+    description: string | null
+    image: string | null
 }
 
 export default async function ProductPage({ params }: Params) {
     const productName = params.product.replace(/-/g, ' ')
 
-    const product = fakeDB.Products.find(product =>
-        product.name.toLowerCase() === productName.toLowerCase()
-    ) as Product | undefined
+    const product: Product | null = await prisma.product.findFirst({
+        where: {
+            name: productName
+        }
+    })
 
     if (!product) return notFound()
-    const { name, price, description, img } = product
+    const { name, price, description, image } = product
 
     return (
         <main className="w-screen h-screen max-h-screen container mx-auto px-4">
             <section className="text-gray-600 body-font overflow-hidden">
                 <div className="container px-5 py-24 mx-auto">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap">
-                        <Image alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src={img} height={400} width={400} />
+                        <Image alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src={image ?? "https://picsum.photos/600"} height={400} width={400} />
                         <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                             <h2 className="text-sm title-font text-gray-500 tracking-widest">BRAND NAME</h2>
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{name}</h1>
