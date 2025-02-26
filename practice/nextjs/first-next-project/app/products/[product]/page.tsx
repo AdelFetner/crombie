@@ -10,7 +10,7 @@ export async function generateStaticParams(): Promise<{ product: string }[]> {
 }
 
 export async function generateMetadata({ params }: Params) {
-    const productName = params.product.replace(/-/g, ' ')
+    const productName = (await params).product.replace(/-/g, ' ')
     const product = await prisma.product.findFirst({
         where: {
             name: productName
@@ -45,7 +45,7 @@ type Product = {
 }
 
 export default async function ProductPage({ params }: Params) {
-    const productName = params.product.replace(/-/g, ' ')
+    const productName = (await params).product.replace(/-/g, ' ')
 
     const product: Product | null = await prisma.product.findFirst({
         where: {

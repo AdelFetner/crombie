@@ -8,6 +8,9 @@
         "start": "next start",
         "lint": "next lint"
     },
+    "prisma": {
+        "seed": "node prisma/seed.js"
+    },
     "dependencies": {
         "@heroui/react": "^2.7.2",
         "@prisma/client": "^6.4.1",
