@@ -21,7 +21,8 @@ model Product {
     image       String?
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
-    carts       Cart[]
+    cartId      String?
+    Cart        Cart?    @relation(fields: [cartId], references: [id])
 }
 
 model User {
@@ -32,16 +33,15 @@ model User {
     image     String?
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-    cart      Cart[]
+    Cart      Cart[]
 }
 
 model Cart {
-    id String @id @default(uuid())
-    quantity Int
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    userId String
-    productId String
-    user User @relation(fields: [userId], references: [id])
-    product Product @relation(fields: [productId], references: [id])
+    id        String    @id @default(uuid())
+    quantity  Int
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    userId    String
+    user      User      @relation(fields: [userId], references: [id])
+    products  Product[]
 }

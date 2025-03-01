@@ -1,0 +1,25 @@
+BEGIN TRY
+
+BEGIN TRAN;
+
+-- DropForeignKey
+ALTER TABLE [dbo].[Cart] DROP CONSTRAINT [Cart_productId_fkey];
+
+-- AlterTable
+ALTER TABLE [dbo].[Product] ADD [cartId] NVARCHAR(1000);
+
+-- AddForeignKey
+ALTER TABLE [dbo].[Product] ADD CONSTRAINT [Product_cartId_fkey] FOREIGN KEY ([cartId]) REFERENCES [dbo].[Cart]([id]) ON DELETE SET NULL ON UPDATE CASCADE;
+
+COMMIT TRAN;
+
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+    ROLLBACK TRAN;
+END;
+THROW
+
+END CATCH
