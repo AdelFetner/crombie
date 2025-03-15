@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="products-container">
+        <!-- Products will be dynamically added here -->
+    </div>
+
+    <script>
+        // Assuming you have an array of products
+        var products = [
+            { name: 'Product 1', price: 10 },
+            { name: 'Product 2', price: 20 },
+            { name: 'Product 3', price: 30 }
+        ];
+
+        var productsContainer = document.getElementById('products-container');
+
+        // Loop through the products array and generate HTML elements for each product
+        products.forEach(function (product) {
+            var productElement = document.createElement('div');
+            productElement.innerHTML = '<h3>' + product.name + '</h3><p>Price: $' + product.price + '</p>';
+            productsContainer.appendChild(productElement);
+        });
+    </script>
+</body>
+
+</html>
